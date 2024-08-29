@@ -1,20 +1,20 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
-import "osi_detectedtrafficsign.proto";
-import "osi_detectedtrafficlight.proto";
-import "osi_detectedroadmarking.proto";
-import "osi_detectedlane.proto";
-import "osi_detectedobject.proto";
-import "osi_detectedoccupant.proto";
-import "osi_sensorview.proto";
-import "osi_featuredata.proto";
-import "osi_logicaldetectiondata.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
+import "avx_osi_detectedtrafficsign.proto";
+import "avx_osi_detectedtrafficlight.proto";
+import "avx_osi_detectedroadmarking.proto";
+import "avx_osi_detectedlane.proto";
+import "avx_osi_detectedobject.proto";
+import "avx_osi_detectedoccupant.proto";
+import "avx_osi_sensorview.proto";
+import "avx_osi_featuredata.proto";
+import "avx_osi_logicaldetectiondata.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The header attributes of each detected entity.
@@ -29,16 +29,16 @@ message DetectedEntityHeader
     // SensorData::last_measurement_time for detailed discussions on the
     // semantics of time-related fields.
     //
-    optional Timestamp measurement_time = 1;
+    Timestamp measurement_time = 1;
 
     // Continuous up counter to identify the cycle.
     //
-    optional uint64 cycle_counter = 2;
+    uint64 cycle_counter = 2;
 
     // Data Qualifier expresses to what extent the content of this event can be
     // relied on.
     //
-    optional DataQualifier data_qualifier = 3;
+    DataQualifier data_qualifier = 3;
 
     //
     // Data qualifier communicates the overall availability of the
@@ -102,7 +102,7 @@ message SensorData
 {
     // The interface version used by the sender.
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // The timestamp of the sensor data. Zero time is arbitrary but must be
     // identical for all messages. Zero time does not need to coincide with
@@ -129,7 +129,7 @@ message SensorData
     // a dumb sensor with no internal time concept), the two timestamps might
     // also be identical, but delayed from the \c GroundTruth timestamp.
     //
-    optional Timestamp timestamp = 2;
+    Timestamp timestamp = 2;
 
     // The sensors estimated location of the host vehicle
     //
@@ -138,7 +138,7 @@ message SensorData
     // \note Note that dimension and base_polygon need not be set.
     // \note The parent frame of \c host_vehicle_location is the sensor frame.
     //
-    optional BaseMoving host_vehicle_location = 3;
+    BaseMoving host_vehicle_location = 3;
 
     // The sensors estimated location error of the host vehicle
     //
@@ -148,7 +148,7 @@ message SensorData
     // \note The parent frame of \c host_vehicle_location_rmse is the sensor
     // frame.
     //
-    optional BaseMoving host_vehicle_location_rmse = 4;
+    BaseMoving host_vehicle_location_rmse = 4;
 
     // The ID of the sensor at host vehicle's mounting_position.
     //
@@ -156,7 +156,7 @@ message SensorData
     // object output; it is distinct from the IDs of its physical detectors,
     // which are used in the detected features.
     //
-    optional Identifier sensor_id = 5;
+    Identifier sensor_id = 5;
 
     // The virtual mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -186,11 +186,11 @@ message SensorData
     // vehicle's bounding box \c MovingObject::base . \c
     // BaseMoving::orientation.
     //
-    optional MountingPosition mounting_position = 6;
+    MountingPosition mounting_position = 6;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 7;
+    MountingPosition mounting_position_rmse = 7;
 
     // Sensor view w.r.t. the sensor coordinate system
     //
@@ -207,11 +207,11 @@ message SensorData
     // the upper bound to the \c DetectedEntityHeader::measurement_time and the
     // feature data \c SensorDetectionHeader::measurement_time fields.
     //
-    optional Timestamp last_measurement_time = 9;
+    Timestamp last_measurement_time = 9;
 
     // General information about the \c DetectedStationaryObject .
     //
-    optional DetectedEntityHeader stationary_object_header = 10;
+    DetectedEntityHeader stationary_object_header = 10;
 
     // The list of stationary objects (e.g. landmarks) detected by the sensor.
     //
@@ -219,7 +219,7 @@ message SensorData
 
     // General information about the \c DetectedMovingObject .
     //
-    optional DetectedEntityHeader moving_object_header = 12;
+    DetectedEntityHeader moving_object_header = 12;
 
     // The list of moving objects detected by the sensor as perceived by
     // the sensor.
@@ -228,7 +228,7 @@ message SensorData
 
     // General information about the \c DetectedTrafficSign .
     //
-    optional DetectedEntityHeader traffic_sign_header = 14;
+    DetectedEntityHeader traffic_sign_header = 14;
 
     // The list of traffic signs detected by the sensor.
     //
@@ -236,7 +236,7 @@ message SensorData
 
     // General information about the \c DetectedTrafficLight .
     //
-    optional DetectedEntityHeader traffic_light_header = 16;
+    DetectedEntityHeader traffic_light_header = 16;
 
     // The list of traffic lights detected by the sensor.
     //
@@ -244,7 +244,7 @@ message SensorData
 
     // General information about the \c DetectedRoadMarking .
     //
-    optional DetectedEntityHeader road_marking_header = 18;
+    DetectedEntityHeader road_marking_header = 18;
 
     // The list of road markings detected by the sensor.
     // This excludes lane boundary markings.
@@ -253,7 +253,7 @@ message SensorData
 
     // General information about the \c DetectedLaneBoundary .
     //
-    optional DetectedEntityHeader lane_boundary_header = 20;
+    DetectedEntityHeader lane_boundary_header = 20;
 
     // The list of lane boundary markings detected by the sensor.
     //
@@ -261,7 +261,7 @@ message SensorData
 
     // General information about the \c DetectedLane .
     //
-    optional DetectedEntityHeader lane_header = 22;
+    DetectedEntityHeader lane_header = 22;
 
     // The list of lanes detected by the sensor
     //
@@ -269,7 +269,7 @@ message SensorData
 
     // General information about the \c DetectedOccupant .
     //
-    optional DetectedEntityHeader occupant_header = 24;
+    DetectedEntityHeader occupant_header = 24;
 
     // The list of occupants of the host vehicle
     //
@@ -281,12 +281,12 @@ message SensorData
     // model sensors giving access to this low level data, i.e. data prior to
     // object hypothesis and tracking.
     //
-    optional FeatureData feature_data = 26;
+    FeatureData feature_data = 26;
 
     // Logical detection data interface.
     //
     // Logical detection data are provided by a transformation
-    // (and optional sensor fusion)
+    // (and sensor fusion)
     // performed by a sensor model or a logical model
     // that fuses multiple sensors and/or sensor types
     // into a single reference frame
@@ -296,5 +296,5 @@ message SensorData
     // \c SensorView::mounting_position (e.g. center of rear axle of the ego car)
     // in cartesian coordinates.
     //
-    optional LogicalDetectionData logical_detection_data = 27;
+    LogicalDetectionData logical_detection_data = 27;
 }

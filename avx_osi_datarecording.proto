@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_sensordata.proto";
+import "avx_osi_sensordata.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief (Time) Series of \c SensorData messages that may be used for data

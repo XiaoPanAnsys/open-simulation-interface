@@ -1,14 +1,14 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
-import "osi_groundtruth.proto";
-import "osi_sensorviewconfiguration.proto";
-import "osi_hostvehicledata.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
+import "avx_osi_groundtruth.proto";
+import "avx_osi_sensorviewconfiguration.proto";
+import "avx_osi_hostvehicledata.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The sensor view is derived from \c GroundTruth and used as
@@ -36,7 +36,7 @@ message SensorView
 {
     // The interface version used by the sender (simulation environment).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // The data timestamp of the simulation environment. Zero time is arbitrary
     // but must be identical for all messages. Zero time does not need to
@@ -48,7 +48,7 @@ message SensorView
     // (there is no inherent latency for sensor view data, as opposed to
     // sensor data).
     //
-    optional Timestamp timestamp = 2;
+    Timestamp timestamp = 2;
 
     // The ID of the sensor at host vehicle's \c #mounting_position.
     //
@@ -60,7 +60,7 @@ message SensorView
     // is_globally_unique
     // \endrules
     //
-    optional Identifier sensor_id = 3;
+    Identifier sensor_id = 3;
 
     // The virtual mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -90,11 +90,11 @@ message SensorView
     // vehicle's bounding box \c MovingObject::base . \c
     // BaseMoving::orientation.
     //
-    optional MountingPosition mounting_position = 4;
+    MountingPosition mounting_position = 4;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 5;
+    MountingPosition mounting_position_rmse = 5;
 
     // Host vehicle data.
     //
@@ -102,7 +102,7 @@ message SensorView
     // e.g. from location sensors, internal sensors and ECU bus data, etc.,
     // that is made available to sensors as input.
     //
-    optional HostVehicleData host_vehicle_data = 6;
+    HostVehicleData host_vehicle_data = 6;
 
     // Ground truth w.r.t. global coordinate system.
     //
@@ -119,7 +119,7 @@ message SensorView
     // an optimization mechanism, not as a replacement of a proper sensor
     // field of view modeling.
     //
-    optional GroundTruth global_ground_truth = 7;
+    GroundTruth global_ground_truth = 7;
 
     // The ID of the host vehicle in the \c #global_ground_truth data.
     //
@@ -127,7 +127,7 @@ message SensorView
     // refers_to: 'MovingObject'
     // \endrules
     //
-    optional Identifier host_vehicle_id = 8;
+    Identifier host_vehicle_id = 8;
 
     // Generic SensorView(s).
     //
@@ -159,7 +159,7 @@ message GenericSensorView
 {
     // Generic view configuration valid at the time the data was created.
     //
-    optional GenericSensorViewConfiguration view_configuration = 1;
+    GenericSensorViewConfiguration view_configuration = 1;
 }
 
 //
@@ -171,7 +171,7 @@ message RadarSensorView
 {
     // Radar view configuration valid at the time the data was created.
     //
-    optional RadarSensorViewConfiguration view_configuration = 1;
+    RadarSensorViewConfiguration view_configuration = 1;
 
     // Ray tracing data.
     //
@@ -194,7 +194,7 @@ message RadarSensorView
         //
         // Unit: dB
         //
-        optional double signal_strength = 1;
+        double signal_strength = 1;
 
         // Time of flight.
         //
@@ -203,7 +203,7 @@ message RadarSensorView
         //
         // Unit: s
         //
-        optional double time_of_flight = 2;
+        double time_of_flight = 2;
 
         // Doppler shift.
         //
@@ -211,7 +211,7 @@ message RadarSensorView
         //
         // Unit: Hz
         //
-        optional double doppler_shift = 3;
+        double doppler_shift = 3;
 
         // TX horizontal angle (azimuth).
         //
@@ -220,7 +220,7 @@ message RadarSensorView
         //
         // Unit: rad
         //
-        optional double source_horizontal_angle = 4;
+        double source_horizontal_angle = 4;
 
         // TX vertical angle (elevation).
         //
@@ -229,7 +229,7 @@ message RadarSensorView
         //
         // Unit: rad
         //
-        optional double source_vertical_angle = 5;
+        double source_vertical_angle = 5;
     }
 }
 
@@ -242,7 +242,7 @@ message LidarSensorView
 {
     // Lidar view configuration valid at the time the data was created.
     //
-    optional LidarSensorViewConfiguration view_configuration = 1;
+    LidarSensorViewConfiguration view_configuration = 1;
 
     // Ray tracing data.
     //
@@ -264,7 +264,7 @@ message LidarSensorView
         //
         // Unit: dB
         //
-        optional double signal_strength = 1;
+        double signal_strength = 1;
 
         // Time of flight.
         //
@@ -273,7 +273,7 @@ message LidarSensorView
         //
         // Unit: s
         //
-        optional double time_of_flight = 2;
+        double time_of_flight = 2;
 
         // Doppler shift.
         //
@@ -281,7 +281,7 @@ message LidarSensorView
         //
         // Unit: Hz
         //
-        optional double doppler_shift = 3;
+        double doppler_shift = 3;
 
         // normal to surface angle.
         //
@@ -290,13 +290,13 @@ message LidarSensorView
         //
         // Unit: unit vector
         //
-        optional Vector3d normal_to_surface = 5;
+        Vector3d normal_to_surface = 5;
 
         // ID of the detected object this reflection is associated to.
         // can be used for raytracing debug
         //
         // \note ID = MAX(uint64) indicates no reference to an object.
-        optional Identifier object_id = 6;
+        Identifier object_id = 6;
     }
 }
 
@@ -309,14 +309,14 @@ message CameraSensorView
 {
     // Camera view configuration valid at the time the data was created.
     //
-    optional CameraSensorViewConfiguration view_configuration = 1;
+    CameraSensorViewConfiguration view_configuration = 1;
 
     // Raw image data.
     //
     // The raw image data in the memory layout and order specified by the
     // camera sensor input configuration.
     //
-    optional bytes image_data = 2;
+    bytes image_data = 2;
 }
 
 //
@@ -328,5 +328,5 @@ message UltrasonicSensorView
 {
     // Ultrasonic view configuration valid at the time the data was created.
     //
-    optional UltrasonicSensorViewConfiguration view_configuration = 1;
+    UltrasonicSensorViewConfiguration view_configuration = 1;
 }

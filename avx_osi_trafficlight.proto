@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A traffic light.
@@ -22,25 +22,25 @@ message TrafficLight
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // The base parameters of the traffic light.
     //
     // \c BaseStationary::orientation x-axis is view normal of the traffic
     // light's icon.
     //
-    optional BaseStationary base = 2;
+    BaseStationary base = 2;
 
     // The classification data for the traffic light.
     //
-    optional Classification classification = 3;
+    Classification classification = 3;
 
     // Opaque reference of an associated 3D model of the traffic light.
     //
     // \note It is implementation-specific how model_references are resolved to
     // 3d models.
     //
-    optional string model_reference = 4;
+    string model_reference = 4;
 
     // Optional external reference to the traffic light source.
     //
@@ -69,7 +69,7 @@ message TrafficLight
     // appearance.  For semantic classification of the traffic light use the color
     // field in \c Classification.
     //
-    optional ColorDescription color_description = 6;
+    ColorDescription color_description = 6;
 
     //
     // \brief \c Classification data for a traffic light.
@@ -88,15 +88,15 @@ message TrafficLight
         // light is off ( \c #mode =  \c #MODE_OFF), then \c #color = \c
         // #COLOR_OTHER .
         //
-        optional Color color = 1;
+        Color color = 1;
 
         // The icon of the traffic light.
         //
-        optional Icon icon = 2;
+        Icon icon = 2;
 
         // The operating mode of the traffic light.
         //
-        optional Mode mode = 3;
+        Mode mode = 3;
 
         // The value of the countdown counter.
         // Unit: % or s
@@ -107,7 +107,7 @@ message TrafficLight
         // is_greater_than_or_equal_to: 0
         // \endrules
         //
-        optional double counter = 4;
+        double counter = 4;
 
         // The IDs of the lanes that the traffic light is assigned to.
         // Might be multiple if the traffic light is valid for multiple driving
@@ -125,7 +125,7 @@ message TrafficLight
         // This can be achieved by visibly crossing the light, covering it completely
         // or swiching the traffic light off.
         //
-        optional bool is_out_of_service = 6;
+        bool is_out_of_service = 6;
 
         // Assignment of this object to logical lanes.
         //

@@ -1,12 +1,12 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
-import "osi_object.proto";
-import "osi_sensorspecific.proto";
+import "avx_osi_common.proto";
+import "avx_osi_object.proto";
+import "avx_osi_sensorspecific.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The common information for a detected item as estimated by the
@@ -17,7 +17,7 @@ message DetectedItemHeader
     // Specific ID of the detected item as assigned by the sensor internally.
     // Needs not to match with \c #ground_truth_id.
     //
-    optional Identifier tracking_id = 1;
+    Identifier tracking_id = 1;
 
     // The ID of the original detected item in the ground truth.
     //
@@ -34,7 +34,7 @@ message DetectedItemHeader
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 3;
+    double existence_probability = 3;
 
     // The amount of time that this detected object has been continuously
     // observed/tracked.
@@ -45,11 +45,11 @@ message DetectedItemHeader
     //
     // Unit: s
     //
-    optional double age = 4;
+    double age = 4;
 
     // The measurement state.
     //
-    optional MeasurementState measurement_state = 5;
+    MeasurementState measurement_state = 5;
 
     // A list of physical sensors which detected this detected item.
     //
@@ -97,17 +97,17 @@ message DetectedStationaryObject
 {
     // Common information of one detected item.
     //
-    optional DetectedItemHeader header = 1;
+    DetectedItemHeader header = 1;
 
     // The base parameters of the stationary object.
     //
-    optional BaseStationary base = 2;
+    BaseStationary base = 2;
 
     // The root mean squared error of the base parameters of the detected
     // stationary object (e.g. landmark). \c StationaryObject::base has to be
     // identical for all \c #candidate stationary objects.
     //
-    optional BaseStationary base_rmse = 3;
+    BaseStationary base_rmse = 3;
 
     // A list of candidates for this stationary object as estimated by the
     // sensor.
@@ -116,7 +116,7 @@ message DetectedStationaryObject
 
     // The dominating color of the material of the structure.
     //
-    optional ColorDescription color_description = 5;
+    ColorDescription color_description = 5;
 
     //
     // \brief A candidate for a detected stationary object as estimated
@@ -135,11 +135,11 @@ message DetectedStationaryObject
         // is_less_than_or_equal_to: 1
         // \endrules
         //
-        optional double probability = 1;
+        double probability = 1;
 
         // The classification of the stationary object (e.g. landmark).
         //
-        optional StationaryObject.Classification classification = 2;
+        StationaryObject.Classification classification = 2;
     }
 }
 
@@ -151,7 +151,7 @@ message DetectedMovingObject
 {
     // Common information of one detected item.
     //
-    optional DetectedItemHeader header = 1;
+    DetectedItemHeader header = 1;
 
     // The base parameters of the moving object.
     //
@@ -160,7 +160,7 @@ message DetectedMovingObject
     // \note The height includes the ground_clearance. It always goes from the
     // top to the ground.
     //
-    optional BaseMoving base = 2;
+    BaseMoving base = 2;
 
     // The root mean squared error of the base parameters of the detected
     // moving object (e.g. car). \c MovingObject::base has to be
@@ -168,7 +168,7 @@ message DetectedMovingObject
     //
     // \note The parent frame of \c base is the sensor's vehicle frame.
     //
-    optional BaseMoving base_rmse = 3;
+    BaseMoving base_rmse = 3;
 
     // Reference point location specification of the sensor measurement
     // (required to decouple sensor measurement, position and bounding box
@@ -178,11 +178,11 @@ message DetectedMovingObject
     // object::position, which always references the center of the object /
     // bounding box.
     //
-    optional ReferencePoint reference_point = 4;
+    ReferencePoint reference_point = 4;
 
     // Actual movement state w.r.t. the moving object history.
     //
-    optional MovementState movement_state = 5;
+    MovementState movement_state = 5;
 
     // Percentage side lane left.
     //
@@ -196,7 +196,7 @@ message DetectedMovingObject
     // is_less_than_or_equal_to: 100
     // \endrules
     //
-    optional double percentage_side_lane_left = 6;
+    double percentage_side_lane_left = 6;
 
     // Percentage side lane right.
     //
@@ -210,7 +210,7 @@ message DetectedMovingObject
     // is_less_than_or_equal_to: 100
     // \endrules
     //
-    optional double percentage_side_lane_right = 7;
+    double percentage_side_lane_right = 7;
 
     // A list of candidates for this moving object as estimated by the
     // sensor (e.g. pedestrian, car).
@@ -219,35 +219,35 @@ message DetectedMovingObject
 
     // The dominating color of the material of the moving object.
     //
-    optional ColorDescription color_description = 9;
+    ColorDescription color_description = 9;
 
     // Additional data that is specific to radar sensors.
     //
     // \note Field needs not to be set if simulated sensor is not a radar
     // sensor.
     //
-    optional RadarSpecificObjectData radar_specifics = 100;
+    RadarSpecificObjectData radar_specifics = 100;
 
     // Additional data that is specific to lidar sensors.
     //
     // \note Field needs not to be set if simulated sensor is not a lidar
     // sensor.
     //
-    optional LidarSpecificObjectData lidar_specifics = 101;
+    LidarSpecificObjectData lidar_specifics = 101;
 
     // Additional data that is specific to camera sensors.
     //
     // \note Field needs not to be set if simulated sensor is not a camera
     // sensor.
     //
-    optional CameraSpecificObjectData camera_specifics = 102;
+    CameraSpecificObjectData camera_specifics = 102;
 
     // Additional data that is specific to ultrasonic sensors.
     //
     // \note Field needs not to be set if simulated sensor is not an ultrasonic
     // sensor.
     //
-    optional UltrasonicSpecificObjectData ultrasonic_specifics = 103;
+    UltrasonicSpecificObjectData ultrasonic_specifics = 103;
 
     //
     // \brief A candidate for a detected moving object as estimated by the
@@ -266,11 +266,11 @@ message DetectedMovingObject
         // is_less_than_or_equal_to: 1
         // \endrules
         //
-        optional double probability = 1;
+        double probability = 1;
 
         // The description of the moving object (e.g. car).
         //
-        optional MovingObject.Type type = 2;
+        MovingObject.Type type = 2;
 
         // Specific information about the classification of the vehicle.
         //
@@ -278,7 +278,7 @@ message DetectedMovingObject
         // \note This field is mandatory if the \c CandidateMovingObject::type
         // is \c MovingObject::TYPE_VEHICLE .
         //
-        optional MovingObject.VehicleClassification vehicle_classification = 3;
+        MovingObject.VehicleClassification vehicle_classification = 3;
 
         // Pedestrian head pose for behavior prediction. Describes the head
         // orientation w.r.t. the host vehicle orientation.
@@ -296,7 +296,7 @@ message DetectedMovingObject
         //
         // [1] Patton, K. T. & Thibodeau, G. A. (2015). <em>Anatomy & Physiology</em>. 9th Edition. Elsevier. Missouri, U.S.A. ISBN 978-0-323-34139-4. p. 1229.
         //
-        optional Orientation3d head_pose = 4;
+        Orientation3d head_pose = 4;
 
         // Pedestrian upper body pose for behavior prediction. Describes the
         // upper body orientation w.r.t. the host vehicle orientation.
@@ -314,11 +314,11 @@ message DetectedMovingObject
         // \par Reference:
         // [1] Patton, K. T. & Thibodeau, G. A. (2015). <em>Anatomy & Physiology</em>. 9th Edition. Elsevier. Missouri, U.S.A. ISBN 978-0-323-34139-4. p. 1229.
         //
-        optional Orientation3d upper_body_pose = 5;
+        Orientation3d upper_body_pose = 5;
 
         // Specific information about the classification of a moving object.
         //
-        optional MovingObject.MovingObjectClassification moving_object_classification = 6;        
+        MovingObject.MovingObjectClassification moving_object_classification = 6;        
     }
 
     // Definition of available reference points. Left/middle/right and

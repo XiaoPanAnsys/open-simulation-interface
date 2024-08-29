@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief An occupant of a host vehicle, especially the driver of the vehicle.
@@ -17,11 +17,11 @@ message Occupant
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // Specific information about the classification of the occupant.
     //
-    optional Classification classification = 2;
+    Classification classification = 2;
 
     // External reference to the occupant source.
     //
@@ -44,16 +44,16 @@ message Occupant
         // Flag determining whether the person is the driver of the vehicle or a
         // passenger.
         //
-        optional bool is_driver = 2;
+        bool is_driver = 2;
 
         // Seat position of the vehicle occupant.
         //
-        optional Seat seat = 3;
+        Seat seat = 3;
 
         // Describes the state of the passenger's hands related to the steering
         // wheel (mostly driver).
         //
-        optional SteeringControl steering_control = 4;
+        SteeringControl steering_control = 4;
 
         // Definition of seat positions.
         //

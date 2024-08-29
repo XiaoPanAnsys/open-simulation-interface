@@ -1,20 +1,20 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
-import "osi_environment.proto";
-import "osi_trafficsign.proto";
-import "osi_trafficlight.proto";
-import "osi_roadmarking.proto";
-import "osi_lane.proto";
-import "osi_logicallane.proto";
-import "osi_referenceline.proto";
-import "osi_object.proto";
-import "osi_occupant.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
+import "avx_osi_environment.proto";
+import "avx_osi_trafficsign.proto";
+import "avx_osi_trafficlight.proto";
+import "avx_osi_roadmarking.proto";
+import "avx_osi_lane.proto";
+import "avx_osi_logicallane.proto";
+import "avx_osi_referenceline.proto";
+import "avx_osi_object.proto";
+import "avx_osi_occupant.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The ground truth information from the simulation environment.
@@ -47,7 +47,7 @@ message GroundTruth
     // The interface version used by the sender (i.e. the simulation
     // environment).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // The data timestamp of the simulation environment. The zero time point is
     // arbitrary but must be identical for all messages.
@@ -60,7 +60,7 @@ message GroundTruth
     // (there is no inherent latency for ground truth data, as opposed to
     // sensor data).
     //
-    optional Timestamp timestamp = 2;
+    Timestamp timestamp = 2;
 
     // The ID of the host vehicle object referencing to \c MovingObject .
     //
@@ -70,7 +70,7 @@ message GroundTruth
     // refers_to: MovingObject
     // \endrules
     //
-    optional Identifier host_vehicle_id = 3;
+    Identifier host_vehicle_id = 3;
 
     // The list of stationary objects (excluding traffic signs and traffic
     // lights).
@@ -108,7 +108,7 @@ message GroundTruth
 
     // Conditions of the environment.
     //
-    optional EnvironmentalConditions environmental_conditions = 12;
+    EnvironmentalConditions environmental_conditions = 12;
 
     // The ISO country code in 3 digit numeric format according to:
     // ISO Code 3166/1 [1].
@@ -121,7 +121,7 @@ message GroundTruth
     // is_iso_country_code:
     // \endrules
     //
-    optional uint32 country_code = 13;
+    uint32 country_code = 13;
 
     // Projection string that allows to transform all coordinates in GroundTruth
     // into a different cartographic projection.
@@ -131,7 +131,7 @@ message GroundTruth
     // \par Reference:
     // [1] PROJ contributors. (2019). <em>PROJ coordinate transformation software library</em>. Open Source Geospatial Foundation. Retrieved January 25, 2019, from https://proj.org/usage/projections.html
     //
-    optional string proj_string = 14;
+    string proj_string = 14;
 
     // Opaque reference of a map.
     //
@@ -140,7 +140,7 @@ message GroundTruth
     //
     // \note It is implementation-specific how map_reference is resolved.
     //
-    optional string map_reference = 15;
+    string map_reference = 15;
 
     // Opaque reference of an associated 3D model.
     //
@@ -156,7 +156,7 @@ message GroundTruth
     // For example, the world model can either contain street geometries or
     // derives street geometries automatically from a map reference.
     //
-    optional string model_reference = 16;
+    string model_reference = 16;
 
     // Reference lines used by LogicalLane
     //

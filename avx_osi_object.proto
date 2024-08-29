@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A simulated object that is neither a moving object (vehicle or
@@ -23,22 +23,22 @@ message StationaryObject
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // The base parameters of the stationary object.
     //
-    optional BaseStationary base = 2;
+    BaseStationary base = 2;
 
     // The classification of the stationary object.
     //
-    optional Classification classification = 3;
+    Classification classification = 3;
 
     // Opaque reference of an associated 3D model of the stationary object.
     //
     // \note It is implementation-specific how model_references are resolved to
     // 3d models.
     //
-    optional string model_reference = 4;
+    string model_reference = 4;
 
     // External reference to the stationary-object source.
     //
@@ -77,7 +77,7 @@ message StationaryObject
 
     // The dominating color of the material of the structure.
     //
-    optional ColorDescription color_description = 6;
+    ColorDescription color_description = 6;
 
     //
     // \brief Classification data for a stationary object.
@@ -86,15 +86,15 @@ message StationaryObject
     {
         // The type of the object.
         //
-        optional Type type = 1;
+        Type type = 1;
 
         // The dominating material of the structure.
         //
-        optional Material material = 2;
+        Material material = 2;
 
         // The dominating density of the material of the structure.
         //
-        optional Density density = 3;
+        Density density = 3;
 
         // The dominating color of the material of the structure.
         //
@@ -102,11 +102,11 @@ message StationaryObject
         // 4.0.0. Use the field \c #color_description (\c ColorDescription) of
         // \c StationaryObject instead.
         //
-        optional Color color = 4;
+        Color color = 4;
 
         // The attributes of the emitting structure if stationary object is classified as such.
         //
-        optional EmittingStructureAttribute emitting_structure_attribute = 5;
+        EmittingStructureAttribute emitting_structure_attribute = 5;
 
         // The IDs of the lanes that the object is assigned to.
         //
@@ -389,7 +389,7 @@ message MovingObject
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // The base parameters of the vehicle.
     //
@@ -397,11 +397,11 @@ message MovingObject
     // \note The height includes the ground_clearance. It always goes from the
     // top to the ground.
     //
-    optional BaseMoving base = 2;
+    BaseMoving base = 2;
 
     // The type of the object.
     //
-    optional Type type = 3;
+    Type type = 3;
 
     // The IDs of the lanes that this object is assigned to.
     //
@@ -422,7 +422,7 @@ message MovingObject
     // check_if this.type is_equal_to 2 else do_check is_set
     // \endrules
     //
-    optional VehicleAttributes vehicle_attributes = 5;
+    VehicleAttributes vehicle_attributes = 5;
 
     // Specific information about the classification of the vehicle.
     //
@@ -434,14 +434,14 @@ message MovingObject
     // check_if this.type is_equal_to 2 else do_check is_set
     // \endrules
     //
-    optional VehicleClassification vehicle_classification = 6;
+    VehicleClassification vehicle_classification = 6;
 
     // Opaque reference of an associated 3D model of the moving object.
     //
     // \note It is implementation-specific how model_references are resolved to
     // 3d models.
     //
-    optional string model_reference = 7;
+    string model_reference = 7;
 
     // The trajectory that this moving object expects to follow in the future.
     //
@@ -457,7 +457,7 @@ message MovingObject
 
     // Specific information about the classification of the vehicle.
     //
-    optional MovingObjectClassification moving_object_classification = 9;
+    MovingObjectClassification moving_object_classification = 9;
 
     // Optional external reference to the moving-object source
     //
@@ -485,7 +485,7 @@ message MovingObject
 
     // The dominating color of the material of the moving object.
     //
-    optional ColorDescription color_description = 11;
+    ColorDescription color_description = 11;
 
     // Definition of object types.
     //
@@ -543,7 +543,7 @@ message MovingObject
         // \note Field need not be set if host_vehicle is set to false or use
         // value for non valid id.
         //
-        optional Identifier driver_id = 1;
+        Identifier driver_id = 1;
 
         // Deprecated: Will be removed in next major release. Moved to WheelData.
         // Median radius of the wheels measured from a center of the wheel
@@ -555,7 +555,7 @@ message MovingObject
         // is_greater_than_or_equal_to: 0
         // \endrules
         //
-        optional double radius_wheel = 2;
+        double radius_wheel = 2;
 
         // Number of independent wheels.
         //
@@ -563,21 +563,21 @@ message MovingObject
         // is_greater_than_or_equal_to: 1
         // \endrules
         //
-        optional uint32 number_wheels = 3;
+        uint32 number_wheels = 3;
 
         // The vector pointing from the bounding box center point (\c
         // MovingObject::base . \c BaseMoving::position) to the middle (in x, y
         // and z) of the rear axle under neutral load conditions. In object
         // coordinates.
         //
-        optional Vector3d bbcenter_to_rear = 4;
+        Vector3d bbcenter_to_rear = 4;
 
         // The vector pointing from the bounding box center point (\c
         // MovingObject::base . \c BaseMoving::position) to the middle (in x, y
         // and z) of the front axle under neutral load conditions. In object
         // coordinates.
         //
-        optional Vector3d bbcenter_to_front = 5;
+        Vector3d bbcenter_to_front = 5;
 
         // Static minimal distance or space from the lowest point of the vehicle's
         // body to the surface plane below it under neutral load conditions. This
@@ -586,7 +586,7 @@ message MovingObject
         // under a vehicle that a sensor can see through.
         // \note \c ground_clearance is included in the bounding box height.
         //
-        optional double ground_clearance = 6;
+        double ground_clearance = 6;
 
         // Description of each wheel.
         //
@@ -601,7 +601,7 @@ message MovingObject
         //
         // Unit: rad
         //
-        optional double steering_wheel_angle = 8;
+        double steering_wheel_angle = 8;
 
         // \brief Detailed wheel data.
         // The focus is on the description of a wheel regarding the perceivable
@@ -614,7 +614,7 @@ message MovingObject
             // front-most axle of the vehicle with higher numbers incrementing
             // towards the rear-most axle.
             //
-            optional uint32 axle = 1;
+            uint32 axle = 1;
 
             // The index of the wheel on the axle, counting in the direction
             // of positive-y, that is, right-to-left.
@@ -623,37 +623,37 @@ message MovingObject
             // wheel would be (axle=1, index=0).
             // This concept works also for twin tires.
             //
-            optional uint32 index = 2;
+            uint32 index = 2;
 
             // A vector pointing from the vehicle's reference system (center of bounding
             // box) to the geometric center of the wheel.
             //
-            optional Vector3d position = 3;
+            Vector3d position = 3;
 
             // Median radius of the wheel measured from the center of the wheel to
             // the outer part of the tire.
             //
             // Unit: m
             //
-            optional double wheel_radius = 4;
+            double wheel_radius = 4;
 
             // Median radius of the rim measured from the center to the outer, visible part of the rim.
             //
             // Unit: m
             //
-            optional double rim_radius = 5;
+            double rim_radius = 5;
 
             // Median width of the tire.
             //
             // Unit: m
             //
-            optional double width = 6;
+            double width = 6;
 
             // Orientation of the wheel.
             //
             // The reference system is the vehicle frame (center of bounding box).
             //
-            optional Orientation3d orientation = 7;
+            Orientation3d orientation = 7;
 
             // Rotation rate of the wheel.
             // The rotation rate around the y-axis with respect to the wheel's coordinate system.
@@ -667,14 +667,14 @@ message MovingObject
             // \image html OSI_RotationRate.svg
             // \note The vehicle's reference coordinate system is only used to determine the sign convention of the rotation rate.
             //
-            optional double rotation_rate = 8;
+            double rotation_rate = 8;
 
             // Opaque reference of an associated 3D model of the wheel.
             //
             // \note It is implementation-specific how model_references are resolved to
             // 3d models.
             //
-            optional string model_reference = 9;
+            string model_reference = 9;
 
             // The value describes the kinetic friction of the tyre's contact point.
             // If different friction coefficients due to more than one contact points are available,
@@ -685,7 +685,7 @@ message MovingObject
             // \par References:
             // [1] Britannica, T. Editors of Encyclopaedia. (2020, June 24). <em>coefficient of friction</em>. Retrieved May 18, 2022, from https://www.britannica.com/science/coefficient-of-friction
             //
-            optional double friction_coefficient = 10;
+            double friction_coefficient = 10;
         }
     }
 
@@ -728,15 +728,15 @@ message MovingObject
     {
         // The type of the vehicle.
         //
-        optional Type type = 1;
+        Type type = 1;
 
         // The light state of the vehicle.
         //
-        optional LightState light_state = 2;
+        LightState light_state = 2;
 
         // Flag defining whether the vehicle has an attached trailer.
         //
-        optional bool has_trailer = 3;
+        bool has_trailer = 3;
 
         // Id of the attached trailer.
         //
@@ -747,11 +747,11 @@ message MovingObject
         // check_if this.has_trailer is_equal_to true else do_check is_set
         // \endrules
         //
-        optional Identifier trailer_id = 4;
+        Identifier trailer_id = 4;
 
         // The role of the vehicle.
         //
-        optional Role role = 5;
+        Role role = 5;
 
         // Definition of vehicle types.
         //
@@ -874,47 +874,47 @@ message MovingObject
         {
             // State of the object's indicators.
             //
-            optional IndicatorState indicator_state = 1;
+            IndicatorState indicator_state = 1;
 
             // State of the front fog light.
             //
-            optional GenericLightState front_fog_light = 2;
+            GenericLightState front_fog_light = 2;
 
             // State of the rear fog light.
             //
-            optional GenericLightState rear_fog_light = 3;
+            GenericLightState rear_fog_light = 3;
 
             // State of the head lights.
             //
-            optional GenericLightState head_light = 4;
+            GenericLightState head_light = 4;
 
             // State of the high beam.
             //
-            optional GenericLightState high_beam = 5;
+            GenericLightState high_beam = 5;
 
             // State of the reversing light.
             //
-            optional GenericLightState reversing_light = 6;
+            GenericLightState reversing_light = 6;
 
             // State of the brake lights.
             //
-            optional BrakeLightState brake_light_state = 7;
+            BrakeLightState brake_light_state = 7;
 
             // State of the (rear) license plate illumination.
             //
-            optional GenericLightState license_plate_illumination_rear = 8;
+            GenericLightState license_plate_illumination_rear = 8;
 
             // Lighting of emergency vehicles (ambulance, fire engine, police
             // car, etc.). Must be set only if a vehicle is allowed to use this
             // illumination type.
             //
-            optional GenericLightState emergency_vehicle_illumination = 9;
+            GenericLightState emergency_vehicle_illumination = 9;
 
             // Lighting of service vehicles (snow removal, garbage truck, towing
             // vehicle, slow or wide vehicle, etc.). Must be set only if a
             // vehicle is allowed to use this illumination type.
             //
-            optional GenericLightState service_vehicle_illumination = 10;
+            GenericLightState service_vehicle_illumination = 10;
 
             // Definition of indicator states.
             //

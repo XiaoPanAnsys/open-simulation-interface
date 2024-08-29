@@ -1,13 +1,13 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
-import "osi_object.proto";
-import "osi_hostvehicledata.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
+import "avx_osi_object.proto";
+import "avx_osi_hostvehicledata.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The traffic update message is provided by traffic participant
@@ -27,7 +27,7 @@ message TrafficUpdate
 {
     // The interface version used by the sender (traffic participant model).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // The data timestamp of the simulation environment. Zero time is arbitrary
     // but must be identical for all messages. Zero time does not need to
@@ -39,7 +39,7 @@ message TrafficUpdate
     // There is no inherent latency for moving object update data, as opposed
     // to sensor data.
     //
-    optional Timestamp timestamp = 2;
+    Timestamp timestamp = 2;
 
     // Updated traffic participant data
     //
@@ -56,7 +56,7 @@ message TrafficUpdate
 
     // Internal state for each vehicle.
     //
-    // This is an optional field as internal state may not be known or relevant,
+    // This is an field as internal state may not be known or relevant,
     // for example, a trailer might not have any internal state.
     // It is also allowed to only specify internal_state for a subset of the
     // objects referenced in the update.

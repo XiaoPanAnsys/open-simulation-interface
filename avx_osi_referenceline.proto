@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A reference line for defining a non-euclidean ST coordinate system
@@ -29,7 +29,7 @@ message ReferenceLine
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // Points comprising the polyline.
     //
@@ -197,11 +197,11 @@ message ReferenceLine
     {
         // A world position
         //
-        optional Vector3d world_position = 1;
+        Vector3d world_position = 1;
 
         // S position on the reference line
         //
-        optional double s_position = 2;
+        double s_position = 2;
     }
 }
 

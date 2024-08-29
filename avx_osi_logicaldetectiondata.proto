@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief Processed data from one or multiple sensors as a list of logical detections.
@@ -19,11 +19,11 @@ message LogicalDetectionData
     // The interface version used by the sender (i.e. the simulation
     // environment).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // Header attributes of fused detections from multiple sensors and sensor types.
     //
-    optional LogicalDetectionDataHeader header = 2;
+    LogicalDetectionDataHeader header = 2;
 
     // logical detections consisting of transformed (and potentially fused) detections from one or multiple sensors and sensor types.
     // Logical detections are given with respect to the reference frame of the logical/virtual sensor
@@ -37,18 +37,18 @@ message LogicalDetectionData
 //
 message LogicalDetectionDataHeader
 {
-    // Time stamp at which the transformation and optional fusion was finished in the global synchronized time.
+    // Time stamp at which the transformation and fusion was finished in the global synchronized time.
     //
     // \note See \c SensorData::timestamp and
     // \c SensorData::last_measurement_time for detailed discussions on the
     // semantics of time-related fields.
     //
-    optional Timestamp logical_detection_time = 1;
+    Timestamp logical_detection_time = 1;
 
     // Data Qualifier expresses to what extent the content of this event can be
     // relied on.
     //
-    optional DataQualifier data_qualifier = 2;
+    DataQualifier data_qualifier = 2;
 
     // The current number of valid detections in the logical detections list.
     //
@@ -58,7 +58,7 @@ message LogicalDetectionDataHeader
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional uint32 number_of_valid_logical_detections = 3;
+    uint32 number_of_valid_logical_detections = 3;
 
     // The ID(s) of the sensor(s) that produced the detections for transformation
     // and - in case of multiple sensors - fusion into logical detections.
@@ -119,7 +119,7 @@ message LogicalDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 1;
+    double existence_probability = 1;
 
     // ID of the detected object this logical detection is associated to.
     //
@@ -129,25 +129,25 @@ message LogicalDetection
     // refers_to: DetectedObject
     // \endrules
     //
-    optional Identifier object_id = 2;
+    Identifier object_id = 2;
 
     // Measured position of the logical detection given in cartesian coordinates in the
     // host vehicle coordinate system.
     //
     // Unit: m
     //
-    optional Vector3d position = 3;
+    Vector3d position = 3;
 
     // Root mean squared error of the measured position of the logical detection.
     //
-    optional Vector3d position_rmse = 4;
+    Vector3d position_rmse = 4;
 
     // Velocity of the logical detection given in cartesian coordinates in the
     // host vehicle coordinate system.
     //
     // Unit: m/s
     //
-    optional Vector3d velocity = 5;
+    Vector3d velocity = 5;
 
     // Root mean squared error of the logical detection's velocity.
     //
@@ -157,7 +157,7 @@ message LogicalDetection
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional Vector3d velocity_rmse = 6;
+    Vector3d velocity_rmse = 6;
 
     // Intensity or equivalent value of the logical detection's echo.
     //
@@ -168,13 +168,13 @@ message LogicalDetection
     // is_less_than_or_equal_to: 100
     // \endrules
     //
-    optional double intensity = 7;
+    double intensity = 7;
 
     // The signal to noise ratio (SNR) of the logical detection.
     //
     // Unit: dB
     //
-    optional double snr = 8;
+    double snr = 8;
 
     // Describes the possibility whether more than one object may have led to
     // this logical detection.
@@ -184,7 +184,7 @@ message LogicalDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double point_target_probability = 9;
+    double point_target_probability = 9;
 
     // The ID(s) of the sensor(s) that produced the detection(s) for transformation
     // and - in case of multiple sensors - fusion into the single logical detection.
@@ -195,7 +195,7 @@ message LogicalDetection
 
     // Basic classification of the logical detection.
     //
-    optional LogicalDetectionClassification classification = 11;
+    LogicalDetectionClassification classification = 11;
 }
 
 // Definition of basic logical detection classifications.

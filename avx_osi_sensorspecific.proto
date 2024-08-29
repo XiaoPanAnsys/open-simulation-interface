@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief Message encapsulates all data for detected objects that is specific to
@@ -16,7 +16,7 @@ message RadarSpecificObjectData
     //
     // Unit: dB m^2
     //
-    optional double rcs = 1;
+    double rcs = 1;
 }
 
 //
@@ -54,7 +54,7 @@ message UltrasonicSpecificObjectData
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double maximum_measurement_distance_sensor = 1;
+    double maximum_measurement_distance_sensor = 1;
 
     // This value indicates the propability height for the classification in the
     // calculated object.
@@ -66,16 +66,16 @@ message UltrasonicSpecificObjectData
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double probability = 2;
+    double probability = 2;
 
     // This indicates if the detection was calculated based on one or multiple
     // sensors.
     //
-    optional TrilaterationStatus trilateration_status = 3;
+    TrilaterationStatus trilateration_status = 3;
 
     // Describes the general moving direction of the detection.
     //
-    optional Trend trend = 4;
+    Trend trend = 4;
 
     // Ultrasonic signalway. Sender to receiver.
     //
@@ -148,10 +148,10 @@ message UltrasonicSpecificObjectData
     {
         // The ID of the ultrasonic sensor's sender.
         //
-        optional Identifier sender_id = 1;
+        Identifier sender_id = 1;
 
         // The ID of the ultrasonic sensor's receiver.
         //
-        optional Identifier receiver_id = 2;
+        Identifier receiver_id = 2;
     }
 }

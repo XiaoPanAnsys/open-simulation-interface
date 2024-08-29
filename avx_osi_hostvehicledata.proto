@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 // \brief Host vehicle data is about the perception of the vehicle about its own internal states.
 // It captures the knowledge the vehicle has internally, which can differ from the actual or global truth for various reasons.
@@ -20,7 +20,7 @@ message HostVehicleData
 {
     // The interface version used by the sender.
     //
-    optional InterfaceVersion version = 9;
+    InterfaceVersion version = 9;
 
     // The timestamp of the host vehicle data. Zero time is arbitrary but must be
     // identical for all messages. Zero time does not need to coincide with
@@ -30,18 +30,18 @@ message HostVehicleData
     // \note This is the point in time that the host vehicle data message becomes
     // available as snapshot from the board net information.
     //
-    optional Timestamp timestamp = 10;
+    Timestamp timestamp = 10;
 
     // The ID of the host vehicle in any associated GroundTruth data.
     //
-    optional Identifier host_vehicle_id = 11;
+    Identifier host_vehicle_id = 11;
 
     // Deprecated: Will be removed in next major release. Moved to vehicle_localization.
     // Current estimated location based on GPS- and related navigation sensors.
     //
     // \note Note that dimension and base_polygon need not be set.
     //
-    optional BaseMoving location = 1;
+    BaseMoving location = 1;
 
     // Deprecated: Will be removed in next major release. Moved to vehicle_localization.
     // Current estimated location error based on GPS and related navigation
@@ -49,31 +49,31 @@ message HostVehicleData
     //
     // \note Note that dimension and base_polygon need not be set.
     //
-    optional BaseMoving location_rmse = 2;
+    BaseMoving location_rmse = 2;
 
     // The basic parameters and overall states of the vehicle.
     //
-    optional VehicleBasics vehicle_basics = 3;
+    VehicleBasics vehicle_basics = 3;
 
     // Interface regarding the powertrain.
     //
-    optional VehiclePowertrain vehicle_powertrain = 4;
+    VehiclePowertrain vehicle_powertrain = 4;
 
     // Interface regarding the brake system.
     //
-    optional VehicleBrakeSystem vehicle_brake_system = 5;
+    VehicleBrakeSystem vehicle_brake_system = 5;
 
     // Interface regarding the steering.
     //
-    optional VehicleSteering vehicle_steering = 6;
+    VehicleSteering vehicle_steering = 6;
 
     // Interface regarding the internal wheel states.
     //
-    optional VehicleWheels vehicle_wheels = 7;
+    VehicleWheels vehicle_wheels = 7;
 
     // Interface regarding the localization.
     //
-    optional VehicleLocalization vehicle_localization = 8;
+    VehicleLocalization vehicle_localization = 8;
 
     // State of any automated driving functions.
     //
@@ -99,11 +99,11 @@ message HostVehicleData
         // \par Reference:
         // Paragraph 42 of the German Road Traffic Admission Regulations (StVZO).
         //
-        optional double curb_weight = 1;
+        double curb_weight = 1;
 
         // The operating state of the vehicle.
         //
-        optional OperatingState operating_state = 2;
+        OperatingState operating_state = 2;
 
         // Possible operating states of the vehicle.
         // It is user specific which states are used and how their transitions work.
@@ -159,12 +159,12 @@ message HostVehicleData
         // Position of the acceleration pedal.
         // Range: 0-1 (Unpressed - fully pressed)
         //
-        optional double pedal_position_acceleration = 1;
+        double pedal_position_acceleration = 1;
 
         // Position of the clutch pedal.
         // Range: 0-1 (Unpressed - fully pressed)
         //
-        optional double pedal_position_clutch = 2;
+        double pedal_position_clutch = 2;
 
         // The actual gear of the transmission.
         // For example, a gear lever can be on "D" and the transmission on "4", but not the
@@ -176,7 +176,7 @@ message HostVehicleData
         // - negative: reverse mode (generally -1, but few vehicles have more than 1
         //   reverse mode gears)
         //
-        optional int32 gear_transmission = 3;
+        int32 gear_transmission = 3;
 
         // Information about the motor(s).
         //
@@ -189,19 +189,19 @@ message HostVehicleData
         {
             // The type of the motor.
             //
-            optional Type type = 1;
+            Type type = 1;
 
             // Revolutions per minute of the motor.
             //
             // Unit: 1/min
             //
-            optional double rpm = 2;
+            double rpm = 2;
 
             // Torque of the motor.
             //
             // Unit: N*m
             //
-            optional double torque = 3;
+            double torque = 3;
 
             // Definition which type of motor is used.
             //
@@ -238,7 +238,7 @@ message HostVehicleData
         // Position of the brake pedal.
         // Range: 0-1 (Unpressed - fully pressed)
         //
-        optional double pedal_position_brake = 1;
+        double pedal_position_brake = 1;
     }
 
     //
@@ -248,7 +248,7 @@ message HostVehicleData
     {
         // Description of the steering wheel.
         //
-        optional VehicleSteeringWheel vehicle_steering_wheel = 1;
+        VehicleSteeringWheel vehicle_steering_wheel = 1;
     }
 
     //
@@ -271,7 +271,7 @@ message HostVehicleData
             // foremost axle of the vehicle, with higher numbers ascending
             // towards the rearmost axle.
             //
-            optional uint32 axle = 1;
+            uint32 axle = 1;
 
             // The index of the wheel on the axle, counted in positive y- direction,
             // that is, right-to-left.
@@ -280,7 +280,7 @@ message HostVehicleData
             // wheel would be (axle=1, index=0).
             // This concept also works for twin tires.
             //
-            optional uint32 index = 2;
+            uint32 index = 2;
 
             // Rotation rate of the wheel based on the processed output of the hall sensor measurements at the wheel.
             // The rotation rate around the y-axis with respect to the wheel's coordinate system.
@@ -294,7 +294,7 @@ message HostVehicleData
             // \image html OSI_RotationRate.svg
             // \note The vehicle's reference coordinate system is only used to determine the sign convention of the rotation rate.
             //
-            optional double rotation_rate = 3;
+            double rotation_rate = 3;
 
             // Contains the longitudinal, measured slip of the tire.
             // \par References:
@@ -306,7 +306,7 @@ message HostVehicleData
             // It is applied on the y-axis of the vehicle's reference system, that is, the center of bounding box.
             // Counterclockwise is positive and clockwise is negative.
             //
-            optional double slip = 4;
+            double slip = 4;
         }
     }
 
@@ -325,16 +325,16 @@ message HostVehicleData
         // The reference point for position, that is, the center (x,y,z) of the bounding box
         // in context to the global coordinate system.
         //
-        optional Vector3d position = 1;
+        Vector3d position = 1;
 
         // Most accurate orientation information of the vehicle available in the on-board network
         // in context to the global coordinate system.
         //
-        optional Orientation3d orientation = 2;
+        Orientation3d orientation = 2;
 
         // Most accurate geodetic information of the vehicle available in the on-board network.
         //
-        optional GeodeticPosition geodetic_position = 3;
+        GeodeticPosition geodetic_position = 3;
     }
 
     //
@@ -344,13 +344,13 @@ message HostVehicleData
     {
         // The particular driving function being reported about.
         //
-        optional Name name = 1;
+        Name name = 1;
 
         // Custom driving function name.
         //
         // Only used if name is set to NAME_OTHER.
         //
-        optional string custom_name = 2;
+        string custom_name = 2;
 
         // The state of the function.
         //
@@ -358,17 +358,17 @@ message HostVehicleData
         // example, a warning has been raised, or additional braking is
         // in effect.
         //
-        optional State state = 3;
+        State state = 3;
 
         // Custom state.
         //
         // Only used if the state is set to STATE_OTHER.
         //
-        optional string custom_state = 4;
+        string custom_state = 4;
 
         // Whether, and how, the driver has overridden this function.
         //
-        optional DriverOverride driver_override = 5;
+        DriverOverride driver_override = 5;
 
         // Custom detail.
         //
@@ -549,7 +549,7 @@ message HostVehicleData
             // The feature has been overridden by a driver action.
             //
             // \note If false, the rest of this message should be ignored.
-            optional bool active = 1;
+            bool active = 1;
 
             // What driver inputs have caused the override.
             //

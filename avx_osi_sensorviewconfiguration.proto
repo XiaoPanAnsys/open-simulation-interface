@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
-import "osi_version.proto";
+import "avx_osi_common.proto";
+import "avx_osi_version.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The configuration settings for the \c SensorView to be provided
@@ -66,7 +66,7 @@ message SensorViewConfiguration
 {
     // The interface version used by the sender (simulation environment).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // The ID of the sensor at host vehicle's mounting_position.
     //
@@ -77,7 +77,7 @@ message SensorViewConfiguration
     // The ID is to be provided by the environment simulation, the sensor
     // model is not in a position to provide a useful default value.
     //
-    optional Identifier sensor_id = 2;
+    Identifier sensor_id = 2;
 
     // The virtual mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -110,11 +110,11 @@ message SensorViewConfiguration
     // mounting position (based on the vehicle configuration) when setting the
     // view configuration.
     //
-    optional MountingPosition mounting_position = 3;
+    MountingPosition mounting_position = 3;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 4;
+    MountingPosition mounting_position_rmse = 4;
 
     // Field of View in horizontal orientation of the sensor.
     //
@@ -125,7 +125,7 @@ message SensorViewConfiguration
     // Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_horizontal = 5;
+    double field_of_view_horizontal = 5;
 
     // Field of View in vertical orientation of the sensor.
     //
@@ -136,7 +136,7 @@ message SensorViewConfiguration
     // as defined in \c Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_vertical = 6;
+    double field_of_view_vertical = 6;
 
     // Maximum range of the sensor
     //
@@ -149,7 +149,7 @@ message SensorViewConfiguration
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double range = 7;
+    double range = 7;
 
     // The update cycle time of the sensor model.
     //
@@ -159,7 +159,7 @@ message SensorViewConfiguration
     // Unit: s
     // \note In the case of FMU packaging this will correspond to the
     // communication step size.
-    optional Timestamp update_cycle_time = 8;
+    Timestamp update_cycle_time = 8;
 
     // Initial update cycle offset of the sensor model.
     //
@@ -179,7 +179,7 @@ message SensorViewConfiguration
     // simulation start times, e.g. for partial resimulation.
     //
     // Unit: s
-    optional Timestamp update_cycle_offset = 9;
+    Timestamp update_cycle_offset = 9;
 
     // Simulation Start time
     //
@@ -188,7 +188,7 @@ message SensorViewConfiguration
     // the sensor model.
     //
     // Unit: s
-    optional Timestamp simulation_start_time = 10;
+    Timestamp simulation_start_time = 10;
 
     // Omit Static Information
     //
@@ -197,7 +197,7 @@ message SensorViewConfiguration
     // at initialization time shall be omitted from the \c SensorView
     // ground truth information.
     //
-    optional bool omit_static_information = 11;
+    bool omit_static_information = 11;
 
     // Generic Sensor View Configuration(s).
     //
@@ -239,7 +239,7 @@ message GenericSensorViewConfiguration
     // The ID is to be provided by the environment simulation, the sensor
     // model is not in a position to provide a useful default value.
     //
-    optional Identifier sensor_id = 1;
+    Identifier sensor_id = 1;
 
     // The physical mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -268,11 +268,11 @@ message GenericSensorViewConfiguration
     // mounting position (based on the vehicle configuration) when setting the
     // view configuration.
     //
-    optional MountingPosition mounting_position = 2;
+    MountingPosition mounting_position = 2;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 3;
+    MountingPosition mounting_position_rmse = 3;
 
     // Field of View in horizontal orientation of the physical sensor.
     //
@@ -281,7 +281,7 @@ message GenericSensorViewConfiguration
     // Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_horizontal = 4;
+    double field_of_view_horizontal = 4;
 
     // Field of View in vertical orientation of the physical sensor.
     //
@@ -290,7 +290,7 @@ message GenericSensorViewConfiguration
     // as defined in \c Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_vertical = 5;
+    double field_of_view_vertical = 5;
 
     // TBD: Generic sensor specific configuration.
     //
@@ -310,7 +310,7 @@ message RadarSensorViewConfiguration
     // The ID is to be provided by the environment simulation, the sensor
     // model is not in a position to provide a useful default value.
     //
-    optional Identifier sensor_id = 1;
+    Identifier sensor_id = 1;
 
     // The physical mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -339,11 +339,11 @@ message RadarSensorViewConfiguration
     // mounting position (based on the vehicle configuration) when setting the
     // view configuration.
     //
-    optional MountingPosition mounting_position = 2;
+    MountingPosition mounting_position = 2;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 3;
+    MountingPosition mounting_position_rmse = 3;
 
     // Field of View in horizontal orientation of the physical sensor.
     //
@@ -352,7 +352,7 @@ message RadarSensorViewConfiguration
     // Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_horizontal = 4;
+    double field_of_view_horizontal = 4;
 
     // Field of View in vertical orientation of the physical sensor.
     //
@@ -361,7 +361,7 @@ message RadarSensorViewConfiguration
     // as defined in \c Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_vertical = 5;
+    double field_of_view_vertical = 5;
 
     // Number of rays to cast across horizontal field of view (azimuth).
     //
@@ -372,7 +372,7 @@ message RadarSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 number_of_rays_horizontal = 6;
+    uint32 number_of_rays_horizontal = 6;
 
     // Number of rays to cast across vertical field of view (elevation).
     //
@@ -383,7 +383,7 @@ message RadarSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 number_of_rays_vertical = 7;
+    uint32 number_of_rays_vertical = 7;
 
     // Maximum number of interactions to take into account.
     //
@@ -394,7 +394,7 @@ message RadarSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 max_number_of_interactions = 8;
+    uint32 max_number_of_interactions = 8;
 
     // Emitter Frequency.
     //
@@ -412,7 +412,7 @@ message RadarSensorViewConfiguration
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double emitter_frequency = 9;
+    double emitter_frequency = 9;
 
     // This represents the TX antenna diagram
     //
@@ -432,19 +432,19 @@ message RadarSensorViewConfiguration
         // coordinates.
         //
         // Unit: rad
-        optional double horizontal_angle = 1;
+        double horizontal_angle = 1;
 
         // Vertical deflection (elevation) of entry in sensor/antenna
         // coordinates.
         //
         // Unit: rad
-        optional double vertical_angle = 2;
+        double vertical_angle = 2;
 
         // Response of antenna at this point (positive dB is gain,
         // negative dB is attenuation).
         //
         // Unit: dB
-        optional double response = 3;
+        double response = 3;
     }
 }
 
@@ -462,7 +462,7 @@ message LidarSensorViewConfiguration
     // The ID is to be provided by the environment simulation, the sensor
     // model is not in a position to provide a useful default value.
     //
-    optional Identifier sensor_id = 1;
+    Identifier sensor_id = 1;
 
     // The physical mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -491,11 +491,11 @@ message LidarSensorViewConfiguration
     // mounting position (based on the vehicle configuration) when setting the
     // view configuration.
     //
-    optional MountingPosition mounting_position = 2;
+    MountingPosition mounting_position = 2;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 3;
+    MountingPosition mounting_position_rmse = 3;
 
     // Field of View in horizontal orientation of the physical sensor.
     //
@@ -504,7 +504,7 @@ message LidarSensorViewConfiguration
     // Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_horizontal = 4;
+    double field_of_view_horizontal = 4;
 
     // Field of View in vertical orientation of the physical sensor.
     //
@@ -513,7 +513,7 @@ message LidarSensorViewConfiguration
     // as defined in \c Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_vertical = 5;
+    double field_of_view_vertical = 5;
 
     // Number of rays to cast across horizontal field of view.
     //
@@ -524,7 +524,7 @@ message LidarSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 number_of_rays_horizontal = 6;
+    uint32 number_of_rays_horizontal = 6;
 
     // Number of rays to cast across vertical field of view.
     //
@@ -535,7 +535,7 @@ message LidarSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 number_of_rays_vertical = 7;
+    uint32 number_of_rays_vertical = 7;
 
     // Maximum number of interactions to take into account.
     //
@@ -546,7 +546,7 @@ message LidarSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 max_number_of_interactions = 8;
+    uint32 max_number_of_interactions = 8;
 
     // Emitter Frequency.
     //
@@ -564,7 +564,7 @@ message LidarSensorViewConfiguration
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double emitter_frequency = 9;
+    double emitter_frequency = 9;
 
     // Number of pixels in frame.
     //
@@ -574,7 +574,7 @@ message LidarSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 num_of_pixels = 10;
+    uint32 num_of_pixels = 10;
 
     // Ray tracing data.
     //
@@ -606,7 +606,7 @@ message CameraSensorViewConfiguration
     // The ID is to be provided by the environment simulation, the sensor
     // model is not in a position to provide a useful default value.
     //
-    optional Identifier sensor_id = 1;
+    Identifier sensor_id = 1;
 
     // The physical mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -635,11 +635,11 @@ message CameraSensorViewConfiguration
     // mounting position (based on the vehicle configuration) when setting the
     // view configuration.
     //
-    optional MountingPosition mounting_position = 2;
+    MountingPosition mounting_position = 2;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 3;
+    MountingPosition mounting_position_rmse = 3;
 
     // Field of View in horizontal orientation of the physical sensor.
     //
@@ -648,7 +648,7 @@ message CameraSensorViewConfiguration
     // Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_horizontal = 4;
+    double field_of_view_horizontal = 4;
 
     // Field of View in vertical orientation of the physical sensor.
     //
@@ -657,7 +657,7 @@ message CameraSensorViewConfiguration
     // as defined in \c Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_vertical = 5;
+    double field_of_view_vertical = 5;
 
     // Number of pixels to produce across horizontal field of view.
     //
@@ -668,7 +668,7 @@ message CameraSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 number_of_pixels_horizontal = 6;
+    uint32 number_of_pixels_horizontal = 6;
 
     // Number of pixels to produce across horizontal field of view.
     //
@@ -679,7 +679,7 @@ message CameraSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 number_of_pixels_vertical = 7;
+    uint32 number_of_pixels_vertical = 7;
 
     // Format for image data (includes number, kind and format of channels).
     //
@@ -710,7 +710,7 @@ message CameraSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 samples_per_pixel = 9;
+    uint32 samples_per_pixel = 9;
 
     // Maximum number of interactions to take into account.
     //
@@ -721,7 +721,7 @@ message CameraSensorViewConfiguration
     // is_greater_than_or_equal_to: 1
     // \endrules
     //
-    optional uint32 max_number_of_interactions = 10;
+    uint32 max_number_of_interactions = 10;
 
     // In use-cases where a spectral ray-tracer is used, this message
     // determines the range of the wavelength and its desired number
@@ -857,7 +857,7 @@ message UltrasonicSensorViewConfiguration
     // The ID is to be provided by the environment simulation, the sensor
     // model is not in a position to provide a useful default value.
     //
-    optional Identifier sensor_id = 1;
+    Identifier sensor_id = 1;
 
     // The physical mounting position of the sensor (origin and orientation
     // of the sensor coordinate system) given in vehicle coordinates [1].
@@ -886,11 +886,11 @@ message UltrasonicSensorViewConfiguration
     // mounting position (based on the vehicle configuration) when setting the
     // view configuration.
     //
-    optional MountingPosition mounting_position = 2;
+    MountingPosition mounting_position = 2;
 
     // The root mean squared error of the mounting position.
     //
-    optional MountingPosition mounting_position_rmse = 3;
+    MountingPosition mounting_position_rmse = 3;
 
     // Field of View in horizontal orientation of the physical sensor.
     //
@@ -899,7 +899,7 @@ message UltrasonicSensorViewConfiguration
     // Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_horizontal = 4;
+    double field_of_view_horizontal = 4;
 
     // Field of View in vertical orientation of the physical sensor.
     //
@@ -908,7 +908,7 @@ message UltrasonicSensorViewConfiguration
     // as defined in \c Spherical3d.
     //
     // Unit: rad
-    optional double field_of_view_vertical = 5;
+    double field_of_view_vertical = 5;
 
     // TBD: Ultrasonic Sensor specific configuration.
     //

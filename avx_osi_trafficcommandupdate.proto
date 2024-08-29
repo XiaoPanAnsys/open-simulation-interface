@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief This message enables the traffic participant model to send updates 
@@ -29,19 +29,19 @@ message TrafficCommandUpdate
 {
     // The interface version used by the sender (traffic participant model).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // The data timestamp of the simulation environment. Zero time is arbitrary
     // but must be identical for all messages. Zero time does not need to
     // coincide with the UNIX epoch. It is recommended to use zero timestamp as 
     // the starting time point of the simulation.
     //
-    optional Timestamp timestamp = 2;
+    Timestamp timestamp = 2;
 
     // The ID of this traffic participant which must coincide with a prior sent ID, cf.
     // \c TrafficCommand::traffic_participant_id.
     //
-    optional Identifier traffic_participant_id = 3;
+    Identifier traffic_participant_id = 3;
 
     // Actions which a traffic participant dismisses and which are not yet ended or 
     // aborted by the scenario engine (via a \c TrafficCommand::action.end_actions_action or a 
@@ -72,12 +72,12 @@ message TrafficCommandUpdate
         // \c ActionHeader::action_id of a prior sent \c TrafficCommand and must correspond
         // to the same traffic participant.
         //
-        optional Identifier dismissed_action_id = 1;
+        Identifier dismissed_action_id = 1;
 
         // Information about the reason of failure.
         // 
         // \note This is a custom, informal string without a standardized meaning. 
         //
-        optional string failure_reason = 2;
+        string failure_reason = 2;
     }
 }

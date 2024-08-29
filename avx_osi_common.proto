@@ -1,8 +1,8 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A cartesian 3D vector for positions, velocities or accelerations or
@@ -19,19 +19,19 @@ message Vector3d
     //
     // Unit: m, m/s, or m/s^2
     //
-    optional double x = 1;
+    double x = 1;
 
     // The y-coordinate.
     //
     // Unit: m, m/s, or m/s^2
     //
-    optional double y = 2;
+    double y = 2;
 
     // The z-coordinate.
     //
     // Unit: m, m/s, or m/s^2
     //
-    optional double z = 3;
+    double z = 3;
 }
 
 //
@@ -47,13 +47,13 @@ message Vector2d
     //
     // Unit: m, m/s, or m/s^2
     //
-    optional double x = 1;
+    double x = 1;
 
     // The y-coordinate.
     //
     // Unit: m, m/s, or m/s^2
     //
-    optional double y = 2;
+    double y = 2;
 }
 
 //
@@ -76,7 +76,7 @@ message Timestamp
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional int64 seconds = 1;
+    int64 seconds = 1;
 
     // The number of nanoseconds since the start of the last second.
     //
@@ -89,7 +89,7 @@ message Timestamp
     // is_less_than_or_equal_to: 999999999
     // \endrules
     //
-    optional uint32 nanos = 2;
+    uint32 nanos = 2;
 }
 
 //
@@ -113,7 +113,7 @@ message Dimension3d
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double length = 1;
+    double length = 1;
 
     // The width of the box.
     //
@@ -123,7 +123,7 @@ message Dimension3d
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double width = 2;
+    double width = 2;
 
     // The height of the box.
     //
@@ -133,7 +133,7 @@ message Dimension3d
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double height = 3;
+    double height = 3;
 }
 
 //
@@ -173,19 +173,19 @@ message Orientation3d
     //
     // Unit: rad, rad/s, or rad/s^2
     //
-    optional double roll = 1;
+    double roll = 1;
 
     // The pitch angle/rate/acceleration.
     //
     // Unit: rad, rad/s, or rad/s^2
     //
-    optional double pitch = 2;
+    double pitch = 2;
 
     // The yaw angle/rate/acceleration.
     //
     // Unit: rad, rad/s, or rad/s^2
     //
-    optional double yaw = 3;
+    double yaw = 3;
 }
 
 //
@@ -210,15 +210,15 @@ message Identifier
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional uint64 value = 1;
+    uint64 value = 1;
 }
 
 // \brief References to external objects.
 //
-// The external reference is an optional recommendation to refer to objects defined outside of OSI.
+// The external reference is an recommendation to refer to objects defined outside of OSI.
 // This could be other OpenX standards, 3rd-party standards or user-defined objects.
 //
-// \note ExternalReference is optional and can be left empty.
+// \note ExternalReference is and can be left empty.
 //
 message ExternalReference
 {
@@ -231,7 +231,7 @@ message ExternalReference
     // \link https://tools.ietf.org/html/rfc3986 RFC 3986\endlink.
     //
     //
-    optional string reference = 1;
+    string reference = 1;
     
     // The type of the external references.
     //
@@ -245,7 +245,7 @@ message ExternalReference
     // reverse domain name notation with lower-case type field
     // is recommended to guarantee unique and interoperable identification.
     //
-    optional string type = 2;    
+    string type = 2;    
     
     // The external identifier reference value.
     //
@@ -284,7 +284,7 @@ message MountingPosition
 {
     // Offset position relative to the specified reference coordinate system.
     //
-    optional Vector3d position = 1;
+    Vector3d position = 1;
 
     // Orientation offset relative to the specified reference coordinate system.
     //
@@ -293,7 +293,7 @@ message MountingPosition
     // )*(Origin_{\text{reference coord system}}
     // - \f$ \c #position \f$ )\f$
     //
-    optional Orientation3d orientation = 2;
+    Orientation3d orientation = 2;
 }
 
 //
@@ -323,19 +323,19 @@ message Spherical3d
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double distance = 1;
+    double distance = 1;
 
     // The azimuth (horizontal) angle.
     //
     // Unit: rad
     //
-    optional double azimuth = 2;
+    double azimuth = 2;
 
     // The elevation (vertical) angle.
     //
     // Unit: rad
     //
-    optional double elevation = 3;
+    double elevation = 3;
 }
 
 //
@@ -362,7 +362,7 @@ message LogicalLaneAssignment
     // refers_to: LogicalLane
     // \endrules
     //
-    optional Identifier assigned_lane_id = 1;
+    Identifier assigned_lane_id = 1;
 
     // S position of the object reference point on the lane, in the ST
     // coordinate system of the lane.
@@ -372,19 +372,19 @@ message LogicalLaneAssignment
     // outside the lane, but the object overlaps the lane or a TrafficSign or
     // TrafficLight is assigned to a lane.
     //
-    optional double s_position = 2;
+    double s_position = 2;
 
     // T position of the object reference point on the lane, in the ST
     // coordinate system of the lane.
     //
-    optional double t_position = 3;
+    double t_position = 3;
 
     // Angle of the object relative to the lane.
     // See the ReferenceLine description how the angle is calculated.
     //
     // Unit: rad
     //
-    optional double angle_to_lane = 4;
+    double angle_to_lane = 4;
 }
 
 //
@@ -405,12 +405,12 @@ message BaseStationary
     // The 3D dimensions of the stationary object (bounding box), e.g. a
     // landmark.
     //
-    optional Dimension3d dimension = 1;
+    Dimension3d dimension = 1;
 
     // The reference point for position and orientation, i.e. the center (x,y,z)
     // of the bounding box.
     //
-    optional Vector3d position = 2;
+    Vector3d position = 2;
 
     // The relative orientation of the stationary object w.r.t. its parent
     // frame, noted in the parent frame. The orientation becomes global/absolute
@@ -424,7 +424,7 @@ message BaseStationary
     // \note There may be some constraints how to align the orientation w.r.t.
     // to some stationary object's or entity's definition.
     //
-    optional Orientation3d orientation = 3;
+    Orientation3d orientation = 3;
 
     // Usage as ground truth:
     // The two dimensional (flat) contour of the object. This is an extension of
@@ -471,12 +471,12 @@ message BaseMoving
     //
     // \note The bounding box does NOT include side mirrors for vehicles.
     //
-    optional Dimension3d dimension = 1;
+    Dimension3d dimension = 1;
 
     // The reference point for position and orientation: the center (x,y,z) of
     // the bounding box.
     //
-    optional Vector3d position = 2;
+    Vector3d position = 2;
 
     // The relative orientation of the moving object w.r.t. its parent frame,
     // noted in the parent frame. The orientation becomes global/absolute if
@@ -490,7 +490,7 @@ message BaseMoving
     // \note There may be some constraints how to align the orientation w.r.t.
     // to some stationary object's or entity's definition.
     //
-    optional Orientation3d orientation = 3;
+    Orientation3d orientation = 3;
 
     // The relative velocity of the moving object w.r.t. the parent frame,
     // noted in the parent frame. The velocity becomes global/absolute if
@@ -499,7 +499,7 @@ message BaseMoving
     // \c #position \f$ (t) := \f$ \c #position \f$ (t-dt)+ \f$ \c #velocity \f$
     // *dt \f$
     //
-    optional Vector3d velocity = 4;
+    Vector3d velocity = 4;
 
     // The relative acceleration of the moving object w.r.t. its parent frame,
     // noted in the parent frame. The acceleration becomes global/absolute if
@@ -511,7 +511,7 @@ message BaseMoving
     // \c #velocity \f$ (t) := \f$ \c #velocity \f$ (t-dt)+ \f$ \c #acceleration
     // \f$ *dt \f$
     //
-    optional Vector3d acceleration = 5;
+    Vector3d acceleration = 5;
 
     // The relative orientation rate of the moving object w.r.t. its parent
     // frame and parent orientation rate in the center point of the bounding box
@@ -528,7 +528,7 @@ message BaseMoving
     // \c #orientation \f$ .roll(t) := \f$ \c #orientation_rate \f$ .roll(t) *
     // dt + \f$ \c #orientation \f$ .roll(t-dt)\f$
     //
-    optional Orientation3d orientation_rate = 6;
+    Orientation3d orientation_rate = 6;
 
     // The relative orientation acceleration of the moving object w.r.t. its
     // parent frame and parent orientation acceleration in the center point of
@@ -547,7 +547,7 @@ message BaseMoving
     // .roll(t) * dt +
     //  \f$ \c #orientation_rate \f$ .roll(t-dt) \f$
     //
-    optional Orientation3d orientation_acceleration = 8;
+    Orientation3d orientation_acceleration = 8;
 
     // Usage as ground truth:
     // The two dimensional (flat) contour of the object. This is an extension of
@@ -587,18 +587,18 @@ message StatePoint
     //
     // \note Zero time does not need to coincide with the UNIX epoch.
     //
-    optional Timestamp timestamp = 1;
+    Timestamp timestamp = 1;
 
     // Position in the global coordinate system.
     //
     // \note Remark: The definition of the reference point follows the
     // specification of the \c BaseMoving message.
     //
-    optional Vector3d position = 2;
+    Vector3d position = 2;
 
     // Orientation in the global coordinate system.
     //
-    optional Orientation3d orientation = 3;
+    Orientation3d orientation = 3;
 }
 
 //
@@ -613,19 +613,19 @@ message WavelengthData
     //
     // Unit: m
     //
-    optional double start = 1;
+    double start = 1;
 
     // The end, or the maximum wavelength value.
     //
     // Unit: m
     //
-    optional double end = 2;
+    double end = 2;
 
     // Number of samples to be considered within the defined wavelength range.
     // The number of samples includes the start and the end values that are defined in this message, starting from the "start" value.
     // \note This defines the number of wavelengths to be computed during simulation, not to be confused with samples_per_pixel.
     //
-    optional double samples_number = 3;
+    double samples_number = 3;
 }
 
 //
@@ -641,14 +641,14 @@ message SpatialSignalStrength
     //
     // Unit: rad
     //
-    optional double horizontal_angle = 1;
+    double horizontal_angle = 1;
 
     // Vertical angle (elevation) of emission / transmission / reception
     // in the entity's coordinate system.
     //
     // Unit: rad
     //
-    optional double vertical_angle = 2;
+    double vertical_angle = 2;
 
     // Emitted / transmitted /received signal strength
     // of the emitting / transmitting / receiving entity
@@ -659,7 +659,7 @@ message SpatialSignalStrength
     //
     // Unit: dBm
     //
-    optional double signal_strength = 3;
+    double signal_strength = 3;
 }
 
 //
@@ -674,27 +674,27 @@ message ColorDescription
 {
     // Greyscale color model
     //
-    optional ColorGrey grey = 1;
+    ColorGrey grey = 1;
 
     // RGB (Red, Green, Blue) color model
     //
-    optional ColorRGB rgb = 2;
+    ColorRGB rgb = 2;
 
     // RGBIR (Red, Green, Blue, Infrared) color model
     //
-    optional ColorRGBIR rgbir = 3;
+    ColorRGBIR rgbir = 3;
 
     // HSV (Hue, Saturation, Value) color model
     //
-    optional ColorHSV hsv = 4;
+    ColorHSV hsv = 4;
 
     // LUV (Luminance, U-coordinate, V-coordinate) color model
     //
-    optional ColorLUV luv = 5;
+    ColorLUV luv = 5;
 
     // CMYK (Cyan, Magenta, Yellow, Key) color model
     //
-    optional ColorCMYK cmyk = 6;
+    ColorCMYK cmyk = 6;
 }
 
 //
@@ -708,7 +708,7 @@ message ColorGrey
     //
     // Range: [0,1]
     //
-    optional double grey = 1;
+    double grey = 1;
 }
 
 //
@@ -722,19 +722,19 @@ message ColorRGB
     //
     // Range: [0,1]
     //
-    optional double red = 1;
+    double red = 1;
 
     // Green ratio
     //
     // Range: [0,1]
     //
-    optional double green = 2;
+    double green = 2;
 
     // Blue ratio
     //
     // Range: [0,1]
     //
-    optional double blue = 3;
+    double blue = 3;
 }
 
 //
@@ -748,25 +748,25 @@ message ColorRGBIR
     //
     // Range: [0,1]
     //
-    optional double red = 1;
+    double red = 1;
 
     // Green ratio
     //
     // Range: [0,1]
     //
-    optional double green = 2;
+    double green = 2;
 
     // Blue ratio
     //
     // Range: [0,1]
     //
-    optional double blue = 3;
+    double blue = 3;
 
     // Infrared
     //
     // Range: [0,1]
     //
-    optional double infrared = 4;
+    double infrared = 4;
 }
 
 //
@@ -781,19 +781,19 @@ message ColorHSV
     // Unit: deg
     // Range: [0,360[
     //
-    optional double hue = 1;
+    double hue = 1;
 
     // Saturation
     //
     // Range: [0,1]
     //
-    optional double saturation = 2;
+    double saturation = 2;
 
     // Value
     //
     // Range: [0,1]
     //
-    optional double value = 3;
+    double value = 3;
 }
 
 //
@@ -807,19 +807,19 @@ message ColorLUV
     //
     // Range: [0,1]
     //
-    optional double luminance = 1;
+    double luminance = 1;
 
     // U-coordinate
     //
     // Range: [0,1]
     //
-    optional double u = 2;
+    double u = 2;
     
     // V-Coordinate
     //
     // Range: [0,1]
     //
-    optional double v = 3;
+    double v = 3;
 }
 
 //
@@ -833,25 +833,25 @@ message ColorCMYK
     //
     // Range: [0,1]
     //
-    optional double cyan = 1;
+    double cyan = 1;
 
     // Magenta ratio
     //
     // Range: [0,1]
     //
-    optional double magenta = 2;
+    double magenta = 2;
 
     // Yellow ratio
     //
     // Range: [0,1]
     //
-    optional double yellow = 3;
+    double yellow = 3;
 
     // Black ratio
     //
     // Range: [0,1]
     //
-    optional double key = 4;
+    double key = 4;
 }
 
 //
@@ -862,17 +862,17 @@ message Pedalry
     // Position of the acceleration pedal.
     // Range: 0-1 (Unpressed - fully pressed)
     //
-    optional double pedal_position_acceleration = 1;
+    double pedal_position_acceleration = 1;
 
     // Position of the brake pedal.
     // Range: 0-1 (Unpressed - fully pressed)
     //
-    optional double pedal_position_brake = 2;
+    double pedal_position_brake = 2;
 
     // Position of the clutch pedal.
     // Range: 0-1 (Unpressed - fully pressed)
     //
-    optional double pedal_position_clutch = 3;
+    double pedal_position_clutch = 3;
 }
 
 //
@@ -887,7 +887,7 @@ message VehicleSteeringWheel
     //
     // Unit: rad
     //
-    optional double angle = 1;
+    double angle = 1;
 
     // Angular speed of the steering wheel. 
     // Zero means the steering wheel stays in its position. A positive value
@@ -896,7 +896,7 @@ message VehicleSteeringWheel
     //
     // Unit: rad/s
     //
-    optional double angular_speed = 2;
+    double angular_speed = 2;
 
     // Torque of the steering wheel to the hand.
     // Zero means there is no force from the steering wheel to the hand of the driver.
@@ -905,7 +905,7 @@ message VehicleSteeringWheel
     //
     // Unit: N*m
     //
-    optional double torque = 3;
+    double torque = 3;
 }
 
 //
@@ -918,21 +918,21 @@ message GeodeticPosition
     // Unit: Degree
     // Range: [-180; 180]
     //
-    optional double longitude = 1;
+    double longitude = 1;
 
     // Latitude in decimal degrees regarding WGS84.
     //
     // Unit: Degree
     // Range: [-90; 90]
     //
-    optional double latitude = 2;
+    double latitude = 2;
 
     // Height above sea level regarding EGM96.
     //
     // Unit: m
     // Range: [-300; 10000]
     //
-    optional double altitude = 3;
+    double altitude = 3;
 }
 
 //
@@ -945,9 +945,9 @@ message KeyValuePair
 {
     // A generic string key.
     //
-    optional string key = 1;
+    string key = 1;
 
     // A generic string value.
     //
-    optional string value = 2;
+    string value = 2;
 }

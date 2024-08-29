@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A lane in the road network.
@@ -44,11 +44,11 @@ message Lane
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // The classification of the lane.
     //
-    optional Classification classification = 2;
+    Classification classification = 2;
 
     // Optional external reference to the lane source.
     //
@@ -184,13 +184,13 @@ message Lane
         // Example: For l4 in image \ref HighwayExit the \c #type is \c
         // #TYPE_DRIVING.
         //
-        optional Type type = 1;
+        Type type = 1;
 
         // Indicates that the host vehicle travels on this particular lane.
         // The host vehicle may travel on more than one lane at once. This does
         // also apply for the \c CanditateLane in the \c DetectedLane .
         //
-        optional bool is_host_vehicle_lane = 2;
+        bool is_host_vehicle_lane = 2;
 
         // The lane's center line (as a list of segments).
         //
@@ -254,7 +254,7 @@ message Lane
         // \note The \c #centerline_is_driving_direction is defined for \c #type
         // = \c #TYPE_DRIVING .
         //
-        optional bool centerline_is_driving_direction = 4;
+        bool centerline_is_driving_direction = 4;
 
         // List of IDs of all lane segments that are directly adjacent to the
         // lane on the left side (w.r.t. ascending order of centerline points
@@ -380,13 +380,13 @@ message Lane
 
         // The condition of the lane, e.g. influenced by weather.
         //
-        optional RoadCondition road_condition = 11;
+        RoadCondition road_condition = 11;
 
         // The subtype of the lane. 
         // 
         // This subtype specifies a lane more concretely.
         //
-        optional Subtype subtype = 12;
+        Subtype subtype = 12;
 
         // Definition of available lane types.
         //
@@ -542,7 +542,7 @@ message Lane
             // is_greater_than_or_equal_to: 0
             // \endrules
             //
-            optional double surface_temperature = 1;
+            double surface_temperature = 1;
 
             // The height of the water film on top of the surface in mm.
             //
@@ -552,7 +552,7 @@ message Lane
             // is_greater_than_or_equal_to: 0
             // \endrules
             //
-            optional double surface_water_film = 2;
+            double surface_water_film = 2;
 
             // The temperature where the water on top of the surface would start
             // to freeze or dew in Kelvin.
@@ -563,7 +563,7 @@ message Lane
             // is_greater_than_or_equal_to: 0
             // \endrules
             //
-            optional double surface_freezing_point = 3;
+            double surface_freezing_point = 3;
 
             // The percentage of ice covering the road.
             //
@@ -573,7 +573,7 @@ message Lane
             // is_greater_than_or_equal_to: 0
             // \endrules
             //
-            optional double surface_ice = 4;
+            double surface_ice = 4;
 
             // The coefficient representing the roughness or unevenness of the
             // road. International Roughness Index (IRI) [1] values range from 0
@@ -613,7 +613,7 @@ message Lane
             // is_greater_than_or_equal_to: 0
             // \endrules
             //
-            optional double surface_roughness = 5;
+            double surface_roughness = 5;
 
             // The surface texture or fine roughness
             //
@@ -628,7 +628,7 @@ message Lane
             // \par Reference:
             // [1] Schneider, R. (1998). <em>Modellierung der Wellenausbreitung fuer ein bildgebendes Kfz-Radar</em>. PhD thesis. Karlsruhe, Germany. Universitaet Karlsruhe, Fak. f. Elektrotechnik.
             //
-            optional double surface_texture = 6;
+            double surface_texture = 6;
         }
 
         // \brief The lane ID pairings of antecessor and successor lanes.
@@ -680,7 +680,7 @@ message Lane
             // refers_to: Lane
             // \endrules
             //
-            optional Identifier antecessor_lane_id = 1;
+            Identifier antecessor_lane_id = 1;
 
             // The successor lane ID.
             //
@@ -688,7 +688,7 @@ message Lane
             // refers_to: Lane
             // \endrules
             //
-            optional Identifier successor_lane_id = 2;
+            Identifier successor_lane_id = 2;
         }
     }
 }
@@ -715,7 +715,7 @@ message LaneBoundary
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // The list of individual points defining the location of the lane boundary
     // (as a list of segments).
@@ -758,7 +758,7 @@ message LaneBoundary
 
     // The classification of the lane boundary.
     //
-    optional Classification classification = 3;
+    Classification classification = 3;
     
     // Optional external reference to the lane boundary source.
     //
@@ -780,7 +780,7 @@ message LaneBoundary
     // appearance. For semantic classification of the lane boundary use the color
     // field in \c Classification.
     //
-    optional ColorDescription color_description = 5;
+    ColorDescription color_description = 5;
 
     //
     // \brief A single point of a lane boundary.
@@ -805,7 +805,7 @@ message LaneBoundary
     {
         // The position of the \c BoundaryPoint.
         //
-        optional Vector3d position = 1;
+        Vector3d position = 1;
 
         // The overall width of the lane boundary at the position of the
         // \c BoundaryPoint .
@@ -816,7 +816,7 @@ message LaneBoundary
         // \note Field need not be set if it is defined previous.
         // See \c LaneBoundary.
         //
-        optional double width = 2;
+        double width = 2;
 
         // The overall height of the lane boundary at the position of the
         // \c BoundaryPoint .
@@ -834,13 +834,13 @@ message LaneBoundary
         //
         // See \c LaneBoundary .
         //
-        optional double height = 3;
+        double height = 3;
 
         // Alternation of dashes in case of a dashed lane boundary. In
         // context, this field gives information about the location of
         // dashes on the boundary line.
         //
-        optional Dash dash = 4;
+        Dash dash = 4;
 
         // This enum describes the alternation of dashes in case of a
         // dashed lane boundary.
@@ -975,14 +975,14 @@ message LaneBoundary
     {
         // The type of the lane boundary.
         //
-        optional Type type = 1;
+        Type type = 1;
 
         // The semantic color of the lane boundary in case of lane markings.
         //
         // \note The color types represent the semantic classification of
         // lane markings only. They do not represent an actual visual appearance.
         //
-        optional Color color = 2;
+        Color color = 2;
 
         // The ids of \c StationaryObject which limit the corresponding lane.
         // This field must be set if the \c #type is set to

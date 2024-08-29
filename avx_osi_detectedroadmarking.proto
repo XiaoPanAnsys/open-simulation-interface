@@ -1,12 +1,12 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
-import "osi_roadmarking.proto";
-import "osi_detectedobject.proto";
+import "avx_osi_common.proto";
+import "avx_osi_roadmarking.proto";
+import "avx_osi_detectedobject.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A road marking in the environment as detected by the sensor.
@@ -24,7 +24,7 @@ message DetectedRoadMarking
 {
     // Common information of one detected item.
     //
-    optional DetectedItemHeader header = 1;
+    DetectedItemHeader header = 1;
 
     // The base parameters of the road marking.
     //
@@ -44,13 +44,13 @@ message DetectedRoadMarking
     // the road marking is of relevance to (i.e. in effect for) the host
     // vehicle.
     //
-    optional BaseStationary base = 2;
+    BaseStationary base = 2;
 
     // The root mean squared error of the base parameters of the detected
     // road marking. \c RoadMarking::base has to be identical for
     // all \c #candidate road markings.
     //
-    optional BaseStationary base_rmse = 3;
+    BaseStationary base_rmse = 3;
 
     // A list of candidates for this road marking as estimated by the
     // sensor.
@@ -63,7 +63,7 @@ message DetectedRoadMarking
     // appearance. For semantic classification of the road marking use the color
     // field in \c CandidateRoadMarking::classification.
     //
-    optional ColorDescription color_description = 5;
+    ColorDescription color_description = 5;
 
     //
     // \brief A candidate for a detected road marking as estimated by the
@@ -82,13 +82,13 @@ message DetectedRoadMarking
         // is_greater_than_or_equal_to: 0
         // \endrules
         //
-        optional double probability = 1;
+        double probability = 1;
 
         // The classification of the road marking.
         //
         // \note IDs, which are referenced in this message, usually
         // reference to \c DetectedXXX::tracking_id IDs.
         //
-        optional RoadMarking.Classification classification = 2;
+        RoadMarking.Classification classification = 2;
     }
 }

@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_occupant.proto";
-import "osi_detectedobject.proto";
+import "avx_osi_occupant.proto";
+import "avx_osi_detectedobject.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A vehicle occupant as detected and perceived by an interior sensor.
@@ -14,7 +14,7 @@ message DetectedOccupant
 {
     // Common information of one detected item.
     //
-    optional DetectedItemHeader header = 1;
+    DetectedItemHeader header = 1;
 
     // A list of candidates for this occupant as estimated by the
     // sensor.
@@ -38,13 +38,13 @@ message DetectedOccupant
         // is_less_than_or_equal_to: 1
         // \endrules
         //
-        optional double probability = 1;
+        double probability = 1;
 
         // The detected vehicle occupant classification.
         //
         // \note IDs, which are referenced in this message, usually
         // reference to \c DetectedXXX::tracking_id IDs.
         //
-        optional Occupant.Classification classification = 2;
+        Occupant.Classification classification = 2;
     }
 }

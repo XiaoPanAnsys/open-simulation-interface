@@ -1,12 +1,12 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_lane.proto";
-import "osi_detectedobject.proto";
-import "osi_common.proto";
+import "avx_osi_lane.proto";
+import "avx_osi_detectedobject.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A lane segment as detected by the sensor.
@@ -15,7 +15,7 @@ message DetectedLane
 {
     // Common information of one detected item.
     //
-    optional DetectedItemHeader header = 1;
+    DetectedItemHeader header = 1;
 
     // A list of candidates for this lane as estimated by the sensor.
     //
@@ -38,14 +38,14 @@ message DetectedLane
         // is_greater_than_or_equal_to: 0
         // \endrules
         //
-        optional double probability = 1;
+        double probability = 1;
 
         // The classification of one lane that defines this candidate.
         //
         // \note IDs, which are referenced in this message, usually
         // reference to \c DetectedXXX::tracking_id IDs.
         //
-        optional Lane.Classification classification = 2;
+        Lane.Classification classification = 2;
     }
 }
 
@@ -58,7 +58,7 @@ message DetectedLaneBoundary
 {
     // Common information of one detected item.
     //
-    optional DetectedItemHeader header = 1;
+    DetectedItemHeader header = 1;
 
     // A list of candidates for this lane boundary as estimated by the
     // sensor.
@@ -107,7 +107,7 @@ message DetectedLaneBoundary
     // appearance. For semantic classification of the lane boundary use the color
     // field in \c CandidateLaneBoundary::classification.
     //
-    optional ColorDescription color_description = 6;
+    ColorDescription color_description = 6;
 
     //
     // \brief A candidate for a detected lane boundary as estimated by the
@@ -126,13 +126,13 @@ message DetectedLaneBoundary
         // is_less_than_or_equal_to: 1
         // \endrules
         //
-        optional double probability = 1;
+        double probability = 1;
 
         // The classification of one lane boundary that defines this candidate.
         //
         // \note IDs, which are referenced in this message, usually
         // reference to \c DetectedXXX::tracking_id IDs.
         //
-        optional LaneBoundary.Classification classification = 2;
+        LaneBoundary.Classification classification = 2;
     }
 }

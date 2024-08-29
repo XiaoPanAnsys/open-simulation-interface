@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The scenario engine provides control commands in the traffic command  
@@ -21,7 +21,7 @@ message TrafficCommand
 {
     // The interface version used by the sender (scenario engine).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // The data timestamp of the simulation environment. Zero time is arbitrary
     // but must be identical for all messages. Zero time does not need to
@@ -33,11 +33,11 @@ message TrafficCommand
     // There is no inherent latency for traffic command data, as opposed
     // to sensor data.
     //
-    optional Timestamp timestamp = 2;
+    Timestamp timestamp = 2;
 
     // The ID of this traffic participant.
     //
-    optional Identifier traffic_participant_id = 3;
+    Identifier traffic_participant_id = 3;
 
     // Commanded traffic action(s) if any.
     //
@@ -72,51 +72,51 @@ message TrafficAction
 {
     // A FollowTrajectoryAction.
     //
-    optional FollowTrajectoryAction follow_trajectory_action = 1;
+    FollowTrajectoryAction follow_trajectory_action = 1;
 
     // A FollowPathAction.
     //
-    optional FollowPathAction follow_path_action = 2;
+    FollowPathAction follow_path_action = 2;
 
     // An AcquireGlobalPositionAction.
     //
-    optional AcquireGlobalPositionAction acquire_global_position_action = 3;
+    AcquireGlobalPositionAction acquire_global_position_action = 3;
 
     // A LaneChangeAction.
     //
-    optional LaneChangeAction lane_change_action = 4; 
+    LaneChangeAction lane_change_action = 4; 
 
     // A SpeedAction.
     //
-    optional SpeedAction speed_action = 5;    
+    SpeedAction speed_action = 5;    
 
     // An AbortActionsAction.
     //
-    optional AbortActionsAction abort_actions_action = 6; 
+    AbortActionsAction abort_actions_action = 6; 
 
     // An EndActionsAction.
     //
-    optional EndActionsAction end_actions_action = 7; 
+    EndActionsAction end_actions_action = 7; 
 
     // A CustomAction.
     //
-    optional CustomAction custom_action = 8;
+    CustomAction custom_action = 8;
 
     // A LongitudinalDistanceAction.
     //
-    optional LongitudinalDistanceAction longitudinal_distance_action = 9;
+    LongitudinalDistanceAction longitudinal_distance_action = 9;
 
     // A LaneOffsetAction.
     //
-    optional LaneOffsetAction lane_offset_action = 10;
+    LaneOffsetAction lane_offset_action = 10;
 
     // A LateralDistanceAction.
     //
-    optional LateralDistanceAction lateral_distance_action = 11;
+    LateralDistanceAction lateral_distance_action = 11;
 
     // A TeleportAction.
     //
-    optional TeleportAction teleport_action = 12;
+    TeleportAction teleport_action = 12;
 
     //
     // \brief The action header
@@ -130,7 +130,7 @@ message TrafficAction
         // \note This id must be unique within all traffic command
         // messages exchanged with one traffic participant.
         //
-        optional Identifier action_id = 1;
+        Identifier action_id = 1;
     }
 
     // Definition of following mode.
@@ -189,19 +189,19 @@ message TrafficAction
         //
         // Unit: m/s^2
         //
-        optional double max_acceleration = 1;
+        double max_acceleration = 1;
 
         // Maximum deceleration the distance contoller is allowed to use for keeping distance. 
         //
         // Unit: m/s^2
         //
-        optional double max_deceleration = 2;
+        double max_deceleration = 2;
 
         // Maximum speed the distance contoller is allowed to use for keeping distance. 
         //
         // Unit: m/s
         //
-        optional double max_speed = 3;
+        double max_speed = 3;
     }
 
     //
@@ -220,7 +220,7 @@ message TrafficAction
     {
         // The action header.
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // A list of trajectory StatePoints.
         //
@@ -239,12 +239,12 @@ message TrafficAction
         // the trajectory points (if any) shall be used to constrain the
         // orientation of the traffic participant or not.
         //
-        optional bool constrain_orientation = 3;
+        bool constrain_orientation = 3;
 
         // Specify the following mode that should be employed in executing
         // the trajectory.
         //
-        optional FollowingMode following_mode = 4;
+        FollowingMode following_mode = 4;
     }
 
     //
@@ -264,7 +264,7 @@ message TrafficAction
     {
         // The action header
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // A list of path StatePoints
         //
@@ -284,12 +284,12 @@ message TrafficAction
         // the path points shall be used to constrain the orientation
         // of the traffic participant or not.
         //
-        optional bool constrain_orientation = 3;
+        bool constrain_orientation = 3;
 
         // Specify the following mode that should be employed in executing
         // the path.
         //
-        optional FollowingMode following_mode = 4;
+        FollowingMode following_mode = 4;
     }
 
     //
@@ -310,7 +310,7 @@ message TrafficAction
     {
         // The action header.
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Position in the global coordinate system.
         //
@@ -319,14 +319,14 @@ message TrafficAction
         // \note Remark: The definition of the reference point follows the
         // specification of the \c BaseMoving message.
         //
-        optional Vector3d position = 2;
+        Vector3d position = 2;
 
         // Orientation in the global coordinate system.
         //
         // This is optional. If no orientation is given, the end orientation
         // is under control of the traffic participant.
         //
-        optional Orientation3d orientation = 3;
+        Orientation3d orientation = 3;
     }
 
     //
@@ -346,19 +346,19 @@ message TrafficAction
     {
         // The action header.
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Targeted lane relative to the current lane.
         //
         // Convention: +1 means to the right, -1 means to the left.
         //
-        optional int32 relative_target_lane = 2;
+        int32 relative_target_lane = 2;
 
         // Specified shape of the lane change action. 
         // If the shape is unspecified (enum value 0), the shape of the 
         // lane change is open to the traffic participant model. 
         //
-        optional DynamicsShape dynamics_shape = 3;
+        DynamicsShape dynamics_shape = 3;
 
         // Duration of the lane change.
         // 
@@ -368,7 +368,7 @@ message TrafficAction
         //
         // Unit: s
         //
-        optional double duration = 4; 
+        double duration = 4; 
 
         // Distance of the lane change.
         // 
@@ -378,7 +378,7 @@ message TrafficAction
         //
         // Unit: m
         //
-        optional double distance = 5;
+        double distance = 5;
     }
 
     //
@@ -397,17 +397,17 @@ message TrafficAction
     {
         // The action header
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Targeted absolute speed.
         //
-        optional double absolute_target_speed = 2;
+        double absolute_target_speed = 2;
 
         // Specified transition shape of the speed change action. 
         // If the shape is unspecified (enum value 0), the shape of the 
         // speed change is open to the traffic participant model. 
         //
-        optional DynamicsShape dynamics_shape = 3;
+        DynamicsShape dynamics_shape = 3;
 
         // Duration of the speed change.
         // 
@@ -417,7 +417,7 @@ message TrafficAction
         //
         // Unit: s
         //
-        optional double duration = 4; 
+        double duration = 4; 
 
         // Distance of the speed change.
         // 
@@ -427,7 +427,7 @@ message TrafficAction
         //
         // Unit: m
         //
-        optional double distance = 5;
+        double distance = 5;
     }
 
     // \brief AbortActionsAction.
@@ -441,7 +441,7 @@ message TrafficAction
     {
         // The action header
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Actions which must be aborted immediately.
         // 
@@ -462,7 +462,7 @@ message TrafficAction
     {
         // The action header
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Actions which are regarded as successfully executed.
         // 
@@ -487,14 +487,14 @@ message TrafficAction
     {
         // The Action Header.
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // The custom command given to the traffic participant. Used to convey a specific instruction
         // (for example, "exit_highway"), or event (for example, "left_indicator_activated").
         //
         // \note This corresponds to the content of the OpenSCENARIO 1.0 CustomCommandAction field.
         //
-        optional string command = 2;
+        string command = 2;
 
         // The type of the custom command given to the traffic participant. Can be used to simplify
         // how commands are grouped. For example, the command_type could be "sensor_failure" and the
@@ -503,7 +503,7 @@ message TrafficAction
         //
         // \note This corresponds to the "type" attribute of the OpenSCENARIO 1.0 CustomCommandAction.
         //
-        optional string command_type = 3;
+        string command_type = 3;
     }    
 
     // \brief Longitudinal Distance Action
@@ -524,17 +524,17 @@ message TrafficAction
     {
         // Action Header of the message
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Unique Id of the reference traffic participant to which the distance is defined.
         //
-        optional Identifier target_traffic_participant_id = 2;
+        Identifier target_traffic_participant_id = 2;
 
         // The distance to reach along the lane
         //
         // Unit: m
         //
-        optional double distance = 3;
+        double distance = 3;
 
         // Determine the measurement of longitudinal distance between the traffic
         // participant receiving this action and the reference traffic
@@ -542,7 +542,7 @@ message TrafficAction
         // True: Longitudinal distance is measured using the distance between closest bounding box points.
         // False: Longitudinal distance is mesasured using the distance between the center of each object's bounding box.
         //
-        optional bool freespace = 4;
+        bool freespace = 4;
 
         // Define wheather the traffic participant should only reach the distance once 
         // or if it should also keep the distance after having reached it.
@@ -551,12 +551,12 @@ message TrafficAction
         // False: the action ends as soon as the traffic participant has reached
         // the specified distance (communicate with EndActionsAction).
         //
-        optional bool follow = 5;
+        bool follow = 5;
 
         // Parameter that assings either unlimited dynamics (if omitted) 
         // or limited maxAcceleration/maxDeceleration/maxSpeed to the action.
         //
-        optional DynamicConstraints dynamic_constraints = 6;
+        DynamicConstraints dynamic_constraints = 6;
     }
 
     // \brief Lateral Distance Action 
@@ -577,17 +577,17 @@ message TrafficAction
     {
         // Action Header of the message
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Id of the reference entity the lateral distance shall be kept to.
         //
-        optional Identifier target_traffic_participant_id = 2;
+        Identifier target_traffic_participant_id = 2;
 
         // Lateral distance value. 
         //
         // Unit: m
         //
-        optional double distance = 3;
+        double distance = 3;
 
         // Determine the measurement of lateral distance between the traffic
         // participant receiving this action and the reference traffic
@@ -595,7 +595,7 @@ message TrafficAction
         // True: Lateral distance is measured using the distance between closest bounding box points.
         // False: Lateral distance is mesasured using the distance between the center of each object's bounding box.
         //
-        optional bool freespace = 4;
+        bool freespace = 4;
 
         // Define wheather the traffic participant should only reach the distance once 
         // or if it should also keep the distance after having reached it.
@@ -604,12 +604,12 @@ message TrafficAction
         // False: the action ends as soon as the traffic participant has reached
         // the specified distance (communicate with EndActionsAction).
         //
-        optional bool follow = 5;
+        bool follow = 5;
 
         // Parameter that assings either unlimited dynamics (if omitted) 
         // or limited maxAcceleration/maxDeceleration/maxSpeed to the action.
         //
-        optional DynamicConstraints dynamic_constraints = 6;
+        DynamicConstraints dynamic_constraints = 6;
     }
 
     // \brief Lane Offset Action
@@ -624,7 +624,7 @@ message TrafficAction
     {
         // The Action Header
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
         
         // Targeted lane offset in meters relative to the centerline of the
         // current traffic participant's lane. Positive values mean left of the centerline, 
@@ -632,13 +632,13 @@ message TrafficAction
         //
         // Unit: m
         //
-        optional double target_lane_offset = 2;
+        double target_lane_offset = 2;
         
         // Specified transition shape of reaching the lane offset. 
         // If the shape is unspecified (enum value 0), the shape of the 
         // transition is open to the traffic participant model. 
         //
-        optional DynamicsShape dynamics_shape = 3;
+        DynamicsShape dynamics_shape = 3;
     }
 
     // \brief Teleport Action
@@ -653,7 +653,7 @@ message TrafficAction
     {
         // The Action Header
         //
-        optional ActionHeader action_header = 1;
+        ActionHeader action_header = 1;
 
         // Position in the global coordinate system.
         //
@@ -662,13 +662,13 @@ message TrafficAction
         // \note Remark: The definition of the reference point follows the
         // specification of the \c BaseMoving message.
         //
-        optional Vector3d position = 2;
+        Vector3d position = 2;
 
         // Orientation in the global coordinate system.
         //
         // This is optional, if no orientation is given, the end orientation
         // is under control of the traffic participant.
         //
-        optional Orientation3d orientation = 3;
+        Orientation3d orientation = 3;
     }
 }

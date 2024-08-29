@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief Boundary line of a LogicalLane
@@ -58,7 +58,7 @@ message LogicalLaneBoundary
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // Points making up the lane boundary.
     //
@@ -109,7 +109,7 @@ message LogicalLaneBoundary
     // refers_to: ReferenceLine
     // \endrules
     //
-    optional Identifier reference_line_id = 3;
+    Identifier reference_line_id = 3;
 
     // Reference to the physical lane boundary or boundaries that make up this
     // logical boundary.
@@ -155,7 +155,7 @@ message LogicalLaneBoundary
     // The passing rules, insomuch as they can be determined just from road
     // markings.
     //
-    optional PassingRule passing_rule = 5;
+    PassingRule passing_rule = 5;
 
     // Optional external reference to the lane boundary source.
     //
@@ -179,17 +179,17 @@ message LogicalLaneBoundary
 
         // The position of the \c LaneBoundaryPoint.
         //
-        optional Vector3d position = 1;
+        Vector3d position = 1;
 
         // S position of the LaneBoundaryPoint, measured along the parent's
         // reference_line_id.
         //
-        optional double s_position = 2;
+        double s_position = 2;
 
         // T position of the LaneBoundaryPoint, measured along the parent's
         // reference_line_id.
         //
-        optional double t_position = 3;
+        double t_position = 3;
     }
 
     //
@@ -333,11 +333,11 @@ message LogicalLane
     // is_globally_unique
     // \endrules
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // The type of the logical lane.
     //
-    optional Type type = 2;
+    Type type = 2;
 
     // Optional external reference to the lane source.
     //
@@ -435,13 +435,13 @@ message LogicalLane
     // refers_to: ReferenceLine
     // \endrules
     //
-    optional Identifier reference_line_id = 5;
+    Identifier reference_line_id = 5;
 
     // Start S position of the lane.
     //
     // Must be in range [\c sStart,\c sEnd] of the reference line.
     //
-    optional double start_s = 6;
+    double start_s = 6;
 
     // End S position of the lane.
     //
@@ -449,11 +449,11 @@ message LogicalLane
     //
     // Requirement: #end_s > #start_s
     //
-    optional double end_s = 7;
+    double end_s = 7;
 
     // Definition of the intended driving direction.
     //
-    optional MoveDirection move_direction = 8;
+    MoveDirection move_direction = 8;
 
     // Lanes that are directly right of this lane, without gap or overlap.
     //
@@ -703,17 +703,17 @@ message LogicalLane
         // refers_to: Lane
         // \endrules
         //
-        optional Identifier physical_lane_id = 1;
+        Identifier physical_lane_id = 1;
 
         // S position on the logical lane where the physical lane starts.
         //
-        optional double start_s = 2;
+        double start_s = 2;
 
         // S position on the logical lane where the physical lane ends.
         //
         // Requirement: #end_s > #start_s
         //
-        optional double end_s = 3;
+        double end_s = 3;
     }
 
     //
@@ -769,12 +769,12 @@ message LogicalLane
         // refers_to: LogicalLane
         // \endrules
         //
-        optional Identifier other_lane_id = 1;
+        Identifier other_lane_id = 1;
 
         // If true: LaneConnection is at the beginning of the other lane
         // If false: LaneConnection is a the end of the other lane
         //
-        optional bool at_begin_of_other_lane = 2;
+        bool at_begin_of_other_lane = 2;
 
     }
 
@@ -789,24 +789,24 @@ message LogicalLane
         // refers_to: LogicalLane
         // \endrules
         //
-        optional Identifier other_lane_id = 1;
+        Identifier other_lane_id = 1;
 
         // Start s position of the relation.
         //
-        optional double start_s = 2;
+        double start_s = 2;
 
         // End s position of the relation.
         //
         // Requirement: #end_s > #start_s
         //
-        optional double end_s = 3;
+        double end_s = 3;
 
         // Start s position of the relation on the other lane.
         //
         // This is the same place as #start_s, but measured along the reference
         // line of the other lane.
         //
-        optional double start_s_other = 4;
+        double start_s_other = 4;
 
         // End s position of the relation on the other lane.
         //
@@ -815,7 +815,7 @@ message LogicalLane
         //
         // Note: #end_s_other might be smaller than #start_s_other
         //
-        optional double end_s_other = 5;
+        double end_s_other = 5;
     }
 }
 

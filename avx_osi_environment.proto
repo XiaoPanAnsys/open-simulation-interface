@@ -1,10 +1,10 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief The conditions of the environment.
@@ -17,11 +17,11 @@ message EnvironmentalConditions
 {
     // The ambient illumination of the environment.
     //
-    optional AmbientIllumination ambient_illumination = 1;
+    AmbientIllumination ambient_illumination = 1;
 
     // The time of day at the host vehicles location.
     //
-    optional TimeOfDay time_of_day = 2;
+    TimeOfDay time_of_day = 2;
 
     // The unix timestamp describes the time and date at the host vehicle's
     // location, referring to UTC.
@@ -43,7 +43,7 @@ message EnvironmentalConditions
     // [1] ITU Radiocommunication Assembly. (2002). <em>Recommondation  ITU-R  TF.460-6 Standard-frequency and time-signal emissions</em>. (Rec.  ITU-R  TF.460-6). Retrieved January 25, 2020, from http://www.itu.int/dms_pubrec/itu-r/rec/tf/R-REC-TF.460-6-200202-I!!PDF-E.pdf \n
     // [2] The Open Group. (2018). <em>POSIX.1-2017</em> The Open Group Base Specifications Issue 7, 2018 edition. IEEE Std 1003.1-2017 (Revision of IEEE Std 1003.1-2008). Retrieved January 25, 2020, from https://pubs.opengroup.org/onlinepubs/9699919799/xrat/contents.html
     //
-    optional int64 unix_timestamp = 8;
+    int64 unix_timestamp = 8;
 
     // Atmospheric pressure in Pascal at z=0.0 in world frame (about 101325
     // Pa).
@@ -55,7 +55,7 @@ message EnvironmentalConditions
     // is_less_than_or_equal_to: 120000
     // \endrules
     //
-    optional double atmospheric_pressure = 3;
+    double atmospheric_pressure = 3;
 
     // Temperature in Kelvin at z=0.0 in world frame.
     //
@@ -66,7 +66,7 @@ message EnvironmentalConditions
     // is_less_than_or_equal_to: 340
     // \endrules
     //
-    optional double temperature = 4;
+    double temperature = 4;
 
     // Relative humidity in at z=0.0 in world frame.
     //
@@ -81,15 +81,15 @@ message EnvironmentalConditions
     // is_less_than_or_equal_to: 100
     // \endrules
     //
-    optional double relative_humidity = 5;
+    double relative_humidity = 5;
 
     // Description of the precipitation.
     //
-    optional Precipitation precipitation = 6;
+    Precipitation precipitation = 6;
 
     // Description of the fog.
     //
-    optional Fog fog = 7;
+    Fog fog = 7;
     
     // Optional external reference to the environmental condition sources.
     //
@@ -106,15 +106,15 @@ message EnvironmentalConditions
 
     // Description of the clouds.
     //
-    optional CloudLayer clouds = 10;
+    CloudLayer clouds = 10;
 
     // Description of the wind.
     //
-    optional Wind wind = 11;
+    Wind wind = 11;
 
     // Description of the sun.
     //
-    optional Sun sun = 12;
+    Sun sun = 12;
 
     // Definition of discretized precipitation states according to [1].
     // (I = Intensity of precipitation in mm per hour mm/h)
@@ -337,7 +337,7 @@ message EnvironmentalConditions
         // is_less_than: 86400
         // \endrules
         //
-        optional uint32 seconds_since_midnight = 1;
+        uint32 seconds_since_midnight = 1;
     }
 
     //
@@ -347,7 +347,7 @@ message EnvironmentalConditions
     {
         // Properties of a cloud layer given by fractional cloud cover levels.
         //
-        optional FractionalCloudCover fractional_cloud_cover = 1;
+        FractionalCloudCover fractional_cloud_cover = 1;
 
         // Defines the fractional cloud cover [1] given by observation of total cloud amount in eights (oktas) of the sky.
         //
@@ -432,7 +432,7 @@ message EnvironmentalConditions
         // \par References:
         // [1] PROJ contributors. (2019). <em>PROJ coordinate transformation software library</em>. Open Source Geospatial Foundation. Retrieved January 25, 2019, from https://proj.org/usage/projections.html
         //
-        optional double origin_direction = 1;
+        double origin_direction = 1;
 
         // The wind speed.
         //
@@ -442,7 +442,7 @@ message EnvironmentalConditions
         // is_greater_than_or_equal_to: 0
         // \endrules
         //
-        optional double speed = 2;
+        double speed = 2;
     }
 
     //
@@ -464,7 +464,7 @@ message EnvironmentalConditions
         // \par References:
         // [1] PROJ contributors. (2019). <em>PROJ coordinate transformation software library</em>. Open Source Geospatial Foundation. Retrieved January 25, 2019, from https://proj.org/usage/projections.html
         //
-        optional double azimuth = 1;
+        double azimuth = 1;
 
         // Solar elevation angle.
         // The elevation angle is positive when the sun is above the xy-plane, negative when
@@ -477,7 +477,7 @@ message EnvironmentalConditions
         //
         // The preferred angular range is [-pi/2, +pi/2].
         //
-        optional double elevation = 2;
+        double elevation = 2;
 
         // Illuminance of the sun, direct sunlight is around 100000 lx.
         //
@@ -487,6 +487,6 @@ message EnvironmentalConditions
         // is_greater_than_or_equal_to: 0
         // \endrules
         //
-        optional double intensity = 3;
+        double intensity = 3;
     }
 }

@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_common.proto";
-import "osi_trafficsign.proto";
+import "avx_osi_common.proto";
+import "avx_osi_trafficsign.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief A road surface marking.
@@ -29,7 +29,7 @@ message RoadMarking
 {
     // The ID of the road marking.
     //
-    optional Identifier id = 1;
+    Identifier id = 1;
 
     // The base parameters of the road marking.
     //
@@ -49,11 +49,11 @@ message RoadMarking
     // the road marking is of relevance to (i.e. in effect for) the host
     // vehicle.
     //
-    optional BaseStationary base = 2;
+    BaseStationary base = 2;
 
     // The classification data for the road marking.
     //
-    optional Classification classification = 3;
+    Classification classification = 3;
 
     // Optional external reference to the road-marking source.
     //
@@ -88,7 +88,7 @@ message RoadMarking
     // appearance. For semantic classification of the road marking use the color
     // field in \c Classification.
     //
-    optional ColorDescription color_description = 5;
+    ColorDescription color_description = 5;
 
     //
     // \brief \c Classification data for a road surface marking.
@@ -97,7 +97,7 @@ message RoadMarking
     {
         // The type of the road marking.
         //
-        optional Type type = 1;
+        Type type = 1;
 
         // Traffic sign as road marking (color image, monochrome image or
         // character string).
@@ -119,7 +119,7 @@ message RoadMarking
         // check_if this.type is_less_than_or_equal_to 4 else do_check is_set
         // \endrules
         //
-        optional TrafficSign.MainSign.Classification.Type traffic_main_sign_type = 2;
+        TrafficSign.MainSign.Classification.Type traffic_main_sign_type = 2;
 
         // The semantic monochrome color of the road marking.
         //
@@ -135,7 +135,7 @@ message RoadMarking
         // check_if this.monochrome_color is_equal_to 1 else do_check is_set
         // \endrules
         //
-        optional Color monochrome_color = 3;
+        Color monochrome_color = 3;
 
         // Additional value associated with the road marking, e.g. value of the
         // speed limit.
@@ -145,13 +145,13 @@ message RoadMarking
         // \note OSI 3 uses \c #value_text and not \c TrafficSignValue for
         // simple chars.
         //
-        optional TrafficSignValue value = 4;
+        TrafficSignValue value = 4;
 
         // Additional text value as road marking, e.g. BUS, TAXI etc.
         //
         // \note Field need not be set if road marking type does not require it.
         //
-        optional string value_text = 5;
+        string value_text = 5;
 
         // The ID(s) of the lane(s) that the road marking is assigned to.
         // May be multiple if the road marking goes across multiple lanes.
@@ -170,7 +170,7 @@ message RoadMarking
         //
         // \image html OSI_RoadMaking_is_out_of_service.jpg width=800px
         //
-        optional bool is_out_of_service = 7;
+        bool is_out_of_service = 7;
 
         // Country specification of the traffic sign catalog specification
         // that identifies the actual traffic sign. This is part of the
@@ -186,7 +186,7 @@ message RoadMarking
         // check_if this.type is_less_than_or_equal_to 4 else do_check is_set
         // \endrules
         //
-        optional string country = 8;
+        string country = 8;
 
         // Revision specification of the traffic sign catalog specification
         // that identifies the actual traffic sign. This is part of the
@@ -207,7 +207,7 @@ message RoadMarking
         // check_if this.type is_less_than_or_equal_to 4 else do_check is_set
         // \endrules
         //
-        optional string country_revision = 9;
+        string country_revision = 9;
 
         // Code specification of the traffic sign catalog specification
         // that identifies the actual traffic sign. This is part of the
@@ -230,7 +230,7 @@ message RoadMarking
         // check_if this.type is_less_than_or_equal_to 4 else do_check is_set
         // \endrules
         //
-        optional string code = 10;
+        string code = 10;
 
         // Sub-code specification of the traffic sign catalog specification
         // that identifies the actual traffic sign. This is part of the
@@ -254,7 +254,7 @@ message RoadMarking
         // check_if this.type is_less_than_or_equal_to 4 else do_check is_set
         // \endrules
         //
-        optional string sub_code = 11;
+        string sub_code = 11;
 
         // Assignment of this object to logical lanes.
         //

@@ -1,11 +1,11 @@
-syntax = "proto2";
+syntax = "proto3";
 
 option optimize_for = SPEED;
 
-import "osi_version.proto";
-import "osi_common.proto";
+import "avx_osi_version.proto";
+import "avx_osi_common.proto";
 
-package osi3;
+package avx_osi3;
 
 //
 // \brief Interface for sensor data containing information without a history
@@ -22,7 +22,7 @@ message FeatureData
     // The interface version used by the sender (i.e. the simulation
     // environment).
     //
-    optional InterfaceVersion version = 1;
+    InterfaceVersion version = 1;
 
     // Radar detections for multiple radar sensors (sensor fusion).
     //
@@ -58,7 +58,7 @@ message SensorDetectionHeader
     // \c SensorData::last_measurement_time for detailed discussions on the
     // semantics of time-related fields.
     //
-    optional Timestamp measurement_time = 1;
+    Timestamp measurement_time = 1;
 
     // Monotonous counter to identify the exact cycle.
     // In general the detection function is called periodically and
@@ -68,7 +68,7 @@ message SensorDetectionHeader
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional uint64 cycle_counter = 2;
+    uint64 cycle_counter = 2;
 
     // Mounting position of the sensor (origin and orientation of the sensor
     // frame). Both origin and orientation are given in and with respect to the
@@ -93,7 +93,7 @@ message SensorDetectionHeader
     // \par Reference:
     // [1] DIN Deutsches Institut fuer Normung e. V. (2013). <em>DIN ISO 8855 Strassenfahrzeuge - Fahrzeugdynamik und Fahrverhalten - Begriffe</em>. (DIN ISO 8855:2013-11). Berlin, Germany.
     //
-    optional MountingPosition mounting_position = 3;
+    MountingPosition mounting_position = 3;
 
     // The origin/orientation of the sensor frame represents the current
     // mounting pose to the best knowledge of the sensor. The estimation of the
@@ -103,12 +103,12 @@ message SensorDetectionHeader
     // dynamics, such as pitch angles from braking, but includes long-time
     // calibration values, such as pitch angles from luggage in the trunk.
     //
-    optional MountingPosition mounting_position_rmse = 4;
+    MountingPosition mounting_position_rmse = 4;
 
     // Data Qualifier expresses to what extent the content of this event can be
     // relied on.
     //
-    optional DataQualifier data_qualifier = 5;
+    DataQualifier data_qualifier = 5;
 
     // The current number of valid detections in the detections list.
     //
@@ -118,19 +118,19 @@ message SensorDetectionHeader
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional uint32 number_of_valid_detections = 6;
+    uint32 number_of_valid_detections = 6;
 
     // The ID of the sensor at host vehicle's \c #mounting_position.
     //
     // This ID can equal \c SensorData::sensor_id, if \c SensorData holds only
     // data from one sensor/sensor model.
     //
-    optional Identifier sensor_id = 7;
+    Identifier sensor_id = 7;
 
     // The extended qualifier describes the reason (not the effect) why the
     // event data qualifier, \c #data_qualifier, is reduced or not available.
     //
-    optional ExtendedQualifier extended_qualifier = 8;
+    ExtendedQualifier extended_qualifier = 8;
 
     // Data qualifier communicates the overall availability of the
     // interface.
@@ -237,7 +237,7 @@ message RadarDetectionData
 {
     // Header attributes of radar detection from one radar sensor.
     //
-    optional SensorDetectionHeader header = 1;
+    SensorDetectionHeader header = 1;
 
     // List of radar detections constituting the radar detection list.
     //
@@ -260,7 +260,7 @@ message RadarDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 1;
+    double existence_probability = 1;
 
     // ID of the detected object this detection is associated to.
     //
@@ -270,22 +270,22 @@ message RadarDetection
     // refers_to: DetectedObject
     // \endrules
     //
-    optional Identifier object_id = 2;
+    Identifier object_id = 2;
 
     // Measured position of the detection given in spherical coordinates in the
     // sensor coordinate system.
     //
-    optional Spherical3d position = 3;
+    Spherical3d position = 3;
 
     // Root mean squared error of the measured position of the detection.
     //
-    optional Spherical3d position_rmse = 4;
+    Spherical3d position_rmse = 4;
 
     // Radial velocity of the detection positive in direction to the sensor.
     //
     // Unit: m/s
     //
-    optional double radial_velocity = 5;
+    double radial_velocity = 5;
 
     // Root mean squared error of the object measured radial velocity.
     //
@@ -295,19 +295,19 @@ message RadarDetection
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double radial_velocity_rmse = 6;
+    double radial_velocity_rmse = 6;
 
     // The radar cross section (RCS) of the radar detection.
     //
     // Unit: dB m^2
     //
-    optional double rcs = 7;
+    double rcs = 7;
 
     // The signal to noise ratio (SNR) of the radar detection.
     //
     // Unit: dB
     //
-    optional double snr = 8;
+    double snr = 8;
 
     // Describes the possibility whether more than one object may have led to
     // this detection.
@@ -317,7 +317,7 @@ message RadarDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double point_target_probability = 9;
+    double point_target_probability = 9;
 
     // Ambiguity Information:
     // Each ambiguous measurement generates one Ambiguity ID. Ambiguity is
@@ -330,11 +330,11 @@ message RadarDetection
     // usually share an ambiguity ID. They can however be ambiguous
     // with other detections.
     //
-    optional Identifier ambiguity_id = 10;
+    Identifier ambiguity_id = 10;
 
     // Basic classification of the detection.
     //
-    optional DetectionClassification classification = 11;
+    DetectionClassification classification = 11;
 }
 
 //
@@ -344,7 +344,7 @@ message LidarDetectionData
 {
     // Header attributes of lidar detection from one lidar sensor.
     //
-    optional SensorDetectionHeader header = 1;
+    SensorDetectionHeader header = 1;
 
     // List of lidar detections.
     //
@@ -367,7 +367,7 @@ message LidarDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 1;
+    double existence_probability = 1;
 
     // ID of the detected object this detection is associated to.
     //
@@ -377,16 +377,16 @@ message LidarDetection
     // refers_to: DetectedObject
     // \endrules
     //
-    optional Identifier object_id = 2;
+    Identifier object_id = 2;
 
     // Measured position of the detection given in spherical coordinates in the
     // sensor coordinate system.
     //
-    optional Spherical3d position = 3;
+    Spherical3d position = 3;
 
     // Root mean squared error of the measured position of the detection.
     //
-    optional Spherical3d position_rmse = 4;
+    Spherical3d position_rmse = 4;
 
     // The height value which is required when multiple scan points are
     // vertically clustered. Only vertical clustering is allowed (z-axis).
@@ -397,7 +397,7 @@ message LidarDetection
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double height = 5;
+    double height = 5;
 
     // Root mean squared error of the object height.
     //
@@ -407,7 +407,7 @@ message LidarDetection
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double height_rmse = 6;
+    double height_rmse = 6;
 
     // Intensity or equivalent value of the detection's echo.
     //
@@ -418,7 +418,7 @@ message LidarDetection
     // is_less_than_or_equal_to: 100
     // \endrules
     //
-    optional double intensity = 7;
+    double intensity = 7;
 
     // The free space probability in the range [0.0, 1.0] from the origin of the
     // sensor up to this detection, as given by the distance.
@@ -428,15 +428,15 @@ message LidarDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double free_space_probability = 8;
+    double free_space_probability = 8;
 
     // Basic classification of the detection.
     //
-    optional DetectionClassification classification = 9;
+    DetectionClassification classification = 9;
 
     // Lambertian reflectivity.
     //
-    optional double reflectivity = 10;
+    double reflectivity = 10;
 
     // Echo pulse width of the detection's echo.
     // Several sensors output an echo pulse width instead of an intensity for each individual detection.
@@ -454,7 +454,7 @@ message LidarDetection
     // \par Reference:
     // [1] Rosenberger, P., Holder, M.F., Cianciaruso, N. et al. (2020). <em>Sequential lidar sensor system simulation: a modular approach for simulation-based safety validation of automated driving</em> Automot. Engine Technol. 5, Fig 7, Fig 8. Retrieved May 10, 2021, from https://doi.org/10.1007/s41104-020-00066-x
     //
-    optional double echo_pulse_width = 11;
+    double echo_pulse_width = 11;
 }
 
 //
@@ -466,7 +466,7 @@ message UltrasonicDetectionSpecificHeader
     //
     // Unit: m
     //
-    optional double max_range = 1;
+    double max_range = 1;
 
     // The current number of valid indirect detections in the detections list.
     // The detections are measured by a virtual sensor (i.e. sender and
@@ -474,7 +474,7 @@ message UltrasonicDetectionSpecificHeader
     //
     // \note This value has to be set if the list contains invalid detections.
     //
-    optional uint32 number_of_valid_indirect_detections = 2;
+    uint32 number_of_valid_indirect_detections = 2;
 }
 
 //
@@ -498,12 +498,12 @@ message UltrasonicDetectionData
 {
     // Header attributes of ultrasonic detection from one ultrasonic sensor.
     //
-    optional SensorDetectionHeader header = 1;
+    SensorDetectionHeader header = 1;
 
     // Additional header attributes of ultrasonic detection from one ultrasonic
     // sensor.
     //
-    optional UltrasonicDetectionSpecificHeader specific_header = 3;
+    UltrasonicDetectionSpecificHeader specific_header = 3;
 
     // List of ultrasonic detections.
     //
@@ -542,7 +542,7 @@ message UltrasonicDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 1;
+    double existence_probability = 1;
 
     // ID of the detected object this detection is associated to.
     //
@@ -552,7 +552,7 @@ message UltrasonicDetection
     // refers_to: DetectedObject
     // \endrules
     //
-    optional Identifier object_id = 2;
+    Identifier object_id = 2;
 
     // Measured distance (radius) of the detection.
     //
@@ -562,7 +562,7 @@ message UltrasonicDetection
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional double distance = 3;
+    double distance = 3;
 }
 
 //
@@ -593,7 +593,7 @@ message UltrasonicIndirectDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 1;
+    double existence_probability = 1;
 
     // ID of the detected object this detection is associated to.
     //
@@ -603,29 +603,29 @@ message UltrasonicIndirectDetection
     // refers_to: DetectedObject
     // \endrules
     //
-    optional Identifier object_id = 2;
+    Identifier object_id = 2;
 
     // First parameter b of an ellipsoid equation.
     //
     // Unit: m
     //
-    optional double ellipsoid_radial = 3;
+    double ellipsoid_radial = 3;
 
     // Second parameter b of an ellipsoid equation.
     //
     // Unit: m
     //
-    optional double ellipsoid_axial = 4;
+    double ellipsoid_axial = 4;
 
     // The ID of the sensor's receiver. Sender ID is stored in the header \c
     // SensorDetectionHeader.
     //
-    optional Identifier receiver_id = 5;
+    Identifier receiver_id = 5;
 
     // The vector to the receiver's origin in sending ultrasonic sensor frame.
     // The vector is also the direction of \c #ellipsoid_axial.
     //
-    optional Vector3d receiver_origin = 6;
+    Vector3d receiver_origin = 6;
 }
 
 //
@@ -642,7 +642,7 @@ message CameraDetectionSpecificHeader
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional uint32 number_of_valid_points = 1;
+    uint32 number_of_valid_points = 1;
 }
 
 //
@@ -652,11 +652,11 @@ message CameraDetectionData
 {
     // Header attributes of camera detection from one camera sensor.
     //
-    optional SensorDetectionHeader header = 1;
+    SensorDetectionHeader header = 1;
 
     // Additional header attributes of camera detection from one camera sensor.
     //
-    optional CameraDetectionSpecificHeader specific_header = 3;
+    CameraDetectionSpecificHeader specific_header = 3;
 
     // List of camera detections.
     //
@@ -683,7 +683,7 @@ message CameraDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 1;
+    double existence_probability = 1;
 
     // ID of the detected object this detection is associated to.
     //
@@ -693,7 +693,7 @@ message CameraDetection
     // refers_to: DetectedObject
     // \endrules
     //
-    optional Identifier object_id = 2;
+    Identifier object_id = 2;
 
     // Difference to the base timestamp \c
     // SensorDetectionHeader::measurement_time.
@@ -701,143 +701,143 @@ message CameraDetection
     // The timestamp of this detection :=
     // \c SensorDetectionHeader::measurement_time + \c #time_difference.
     //
-    optional Timestamp time_difference = 3;
+    Timestamp time_difference = 3;
 
     // Definition of the image shape type of this detection.
     //
-    optional ImageShapeType image_shape_type = 4;
+    ImageShapeType image_shape_type = 4;
 
     // The defined shape is background.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_background = 5;
+    bool shape_classification_background = 5;
 
     // The defined shape is foregroud.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_foreground = 6;
+    bool shape_classification_foreground = 6;
 
     // The defined shape is flat.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_flat = 7;
+    bool shape_classification_flat = 7;
 
     // The defined shape is upright.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_upright = 8;
+    bool shape_classification_upright = 8;
 
     // The defined shape is ground.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_ground = 9;
+    bool shape_classification_ground = 9;
 
     // The defined shape is sky.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_sky = 10;
+    bool shape_classification_sky = 10;
 
     // The defined shape is vegetation.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_vegetation = 11;
+    bool shape_classification_vegetation = 11;
 
     // The defined shape is a road.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_road = 12;
+    bool shape_classification_road = 12;
 
     // The defined shape is a non-driving lane (e.g. sidewalk).
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_non_driving_lane = 13;
+    bool shape_classification_non_driving_lane = 13;
 
     // The defined shape is non-road (e.g. traffic island).
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_non_road = 14;
+    bool shape_classification_non_road = 14;
 
     // The defined shape is a stationary object.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_stationary_object = 15;
+    bool shape_classification_stationary_object = 15;
 
     // The defined shape is a possible moving object.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_moving_object = 16;
+    bool shape_classification_moving_object = 16;
 
     // The defined shape is a landmark.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_landmark = 17;
+    bool shape_classification_landmark = 17;
 
     // The defined shape is a traffic sign.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_traffic_sign = 18;
+    bool shape_classification_traffic_sign = 18;
 
     // The defined shape is a traffic light.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_traffic_light = 19;
+    bool shape_classification_traffic_light = 19;
 
     // The defined shape is a road marking sign.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_road_marking = 20;
+    bool shape_classification_road_marking = 20;
 
     // The defined shape is a vehicle.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_vehicle = 21;
+    bool shape_classification_vehicle = 21;
 
     // The defined shape is a pedestrian.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_pedestrian = 22;
+    bool shape_classification_pedestrian = 22;
 
     // The defined shape is an animal.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_animal = 23;
+    bool shape_classification_animal = 23;
 
     // The defined shape is a pedestrian seen by the sensor from the front.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_pedestrian_front = 24;
+    bool shape_classification_pedestrian_front = 24;
 
     // The defined shape is a pedestrian seen by the sensor from the side.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_pedestrian_side = 25;
+    bool shape_classification_pedestrian_side = 25;
 
     // The defined shape is a pedestrian seen by the sensor from the rear.
     // The probability for this classification is at least
     // \c #shape_classification_probability.
     //
-    optional bool shape_classification_pedestrian_rear = 26;
+    bool shape_classification_pedestrian_rear = 26;
 
     // This probability defines the mininimum probability for each selected
     // shape classification.
@@ -847,7 +847,7 @@ message CameraDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double shape_classification_probability = 27;
+    double shape_classification_probability = 27;
 
     // The dominant color of the shape.
     //
@@ -855,7 +855,7 @@ message CameraDetection
     // 4.0.0. Use the field \c #color_description (\c ColorDescription)
     // instead.
     //
-    optional Color color = 28;
+    Color color = 28;
 
     // The probability of the shape's color.
     //
@@ -864,7 +864,7 @@ message CameraDetection
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double color_probability = 29;
+    double color_probability = 29;
 
     // If one shape has different shape classifications and shape classification
     // probability or color and color probability, all detections in this cycle
@@ -872,11 +872,11 @@ message CameraDetection
     //
     // \note ID = MAX(uint64) indicates no reference to an object.
     //
-    optional Identifier ambiguity_id = 30;
+    Identifier ambiguity_id = 30;
 
     // Index of the first point in the camera detection.
     //
-    optional uint32 first_point_index = 31;
+    uint32 first_point_index = 31;
 
     // Number of points which defines the shape.
     // \c #image_shape_type may restrict the number of possible values.
@@ -885,12 +885,12 @@ message CameraDetection
     // is_greater_than_or_equal_to: 0
     // \endrules
     //
-    optional uint32 number_of_points = 32;
+    uint32 number_of_points = 32;
 
     //
     // The dominant color of the shape.
     //
-    optional ColorDescription color_description = 33;
+    ColorDescription color_description = 33;
 
     // Definition of shape dominant color.
     //
@@ -1038,16 +1038,16 @@ message CameraPoint
     // is_less_than_or_equal_to: 1
     // \endrules
     //
-    optional double existence_probability = 1;
+    double existence_probability = 1;
 
     // Measured point refered by one camera detection given in spherical
     // coordinates in the sensor coordinate system.
     //
-    optional Spherical3d point = 2;
+    Spherical3d point = 2;
 
     // Root mean squared error of the measured point.
     //
-    optional Spherical3d point_rmse = 3;
+    Spherical3d point_rmse = 3;
 }
 
 // Definition of a basic detection classifications.
